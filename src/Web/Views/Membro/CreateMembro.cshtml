@@ -1,0 +1,45 @@
+@model Web.Models.MembroViewModel
+
+@{
+    ViewData["Title"] = "Criar Membro";
+}
+<h3>Tela de Cadastro de Membro:</h3>
+
+<form asp-action="CreateMembro">
+
+  <vc:Erros></vc:Erros>
+
+  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+  <div class="mb-3 form-group">
+    <label asp-for="Nome" class="control-label">Nome Completo:</label>
+    <input asp-for="Nome" type="text" class="form-control" id="nome" aria-describedby="nome">
+    <span asp-validation-for="Nome" class="text-danger"></span>
+  </div>
+  
+  <div class="mb-3 form-group">
+    <label asp-for="Telefone" class="control-label">Telefone:</label>
+    <input asp-for="Telefone" type="number" class="form-control" id="telefone">
+    <span asp-validation-for="Telefone" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3 form-group">
+    <label asp-for="DataNascimento" class="form-label">Data de Nascimento:</label>
+    <input  asp-for="DataNascimento" type="date" class="form-control" id="dtNascimento">
+    <span asp-validation-for="DataNascimento" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3 form-group">
+    <label asp-for="CPF" class="form-label">CPF:</label>
+    <input type="number" asp-for="CPF" class="form-control" id="cpf">
+    <span asp-validation-for="CPF" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3 form-group">
+    <a class="btn btn-info" asp-action="Index">Voltar</a>
+    <button type="submit" class="btn btn-primary">Salvar</button>    
+  </div>  
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}   
+}
