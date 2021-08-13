@@ -30,9 +30,13 @@ namespace Business.Services
             await repository.AdicionarMembro(entity);
         }
 
-        public void AtualizarMembro(Membro entity)
+        public async Task AtualizarMembro(Membro entity)
         {
-            throw new NotImplementedException();
+            entity.DataNascimento = DateTime.SpecifyKind(entity.DataNascimento,DateTimeKind.Utc);
+            entity.DataCadastro = DateTime.SpecifyKind(entity.DataCadastro,DateTimeKind.Utc);
+            if (!ExecutarValidacao(new MembroValidation(), entity)) return;  
+
+            await repository.AtualizarMembro(entity);
         }
 
         public async Task<Membro> BuscarPorId(string Id)

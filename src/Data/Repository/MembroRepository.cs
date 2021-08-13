@@ -55,14 +55,14 @@ namespace Data.Repository
             return await Task.FromResult(membro);
         }
 
-        public void ExcluirMembro(Membro entity)
+        public Task ExcluirMembro(Membro entity)
         {
             throw new NotImplementedException();
         }
 
-        public void AtualizarMembro(Membro entity)
+        public async Task AtualizarMembro(Membro entity)
         {
-            throw new NotImplementedException();
-        }        
+            await this.Atualizar(entity,path);
+        }      
     }
 }

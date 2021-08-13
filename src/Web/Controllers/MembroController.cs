@@ -55,5 +55,18 @@ namespace Web.Controllers
 
             return View(membroViewModel);
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> Edit(MembroViewModel membroViewModel)
+        {
+            if (!ModelState.IsValid) return View(membroViewModel); 
+
+            var membro = mapper.Map<Membro>(membroViewModel);
+            await service.AtualizarMembro(membro);         
+
+            if (!OperacaoValida()) return View(membroViewModel);
+
+            return RedirectToAction("Index");
+        }
     }
 }
