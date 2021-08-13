@@ -76,5 +76,19 @@ namespace Web.Controllers
 
             return View(membroViewModel);
         }    
+    
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var membro = await service.BuscarPorId(id);
+
+            if (membro == null) return NotFound();
+
+            await service.ExcluirMembro(membro);
+
+            if (!OperacaoValida()) return View(membro);
+
+            return RedirectToAction("Index");
+        }
     }
 }

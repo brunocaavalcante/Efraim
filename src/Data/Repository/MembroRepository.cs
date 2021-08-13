@@ -55,9 +55,9 @@ namespace Data.Repository
             return await Task.FromResult(membro);
         }
 
-        public Task ExcluirMembro(Membro entity)
+        public async Task ExcluirMembro(Membro entity)
         {
-            throw new NotImplementedException();
+            await Remover(entity,path);
         }
 
         public async Task AtualizarMembro(Membro entity)

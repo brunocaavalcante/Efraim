@@ -44,9 +44,9 @@ namespace Business.Services
             return await repository.BuscarPorId(Id);
         }
 
-        public void ExcluirMembro(Membro entity)
+        public async Task ExcluirMembro(Membro entity)
         {
-            throw new NotImplementedException();
+           await repository.ExcluirMembro(entity);
         }
 
         public async Task<List<Membro>> ListarTodos()

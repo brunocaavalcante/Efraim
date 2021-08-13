@@ -16,6 +16,13 @@ namespace Data.Repository
             return FirestoreDb.Create("efraim-65b10");
         }
 
+        public virtual async Task Remover(Entity entity,string path)
+        {
+            Db = Conexao();
+            DocumentReference document = Db.Collection(path).Document(entity.Id);
+            await document.DeleteAsync();
+        }
+
         protected virtual async Task Adicionar(TEntity entity, string path)
         {
             this.Db = Conexao();          
@@ -44,7 +51,7 @@ namespace Data.Repository
             }
         }
         
-        protected async Task<QuerySnapshot> Listar(string path)
+        protected virtual async Task<QuerySnapshot> Listar(string path)
         {
             this.Db = Conexao();
             var usersRef = Db.Collection(path);          
