@@ -68,5 +68,13 @@ namespace Web.Controllers
 
             return RedirectToAction("Index");
         }
+   
+        public async Task<IActionResult> Delete(string id)
+        {
+            var membroViewModel = mapper.Map<MembroViewModel>(await service.BuscarPorId(id));
+            if (membroViewModel == null) return NotFound();
+
+            return View(membroViewModel);
+        }    
     }
 }
