@@ -13,7 +13,7 @@ namespace Data.Repository
       
         private FirestoreDb Conexao()
         {
-            string filepath = "C:\\Users\\bruno\\source\\repos\\EFRAIM\\Web\\efraim-65b10-95921623748b.json";
+            string filepath = "..\\Web\\efraim-65b10-95921623748b.json";
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
             return FirestoreDb.Create("efraim-65b10");
         }
