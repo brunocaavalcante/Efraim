@@ -28,7 +28,16 @@ namespace Web.Controllers
             var lista = mapper.Map<List<MembroViewModel>>(await service.ListarTodos());
             return View(lista);
         }
-        
+    
+        public async Task<IActionResult> Details(string id)
+        {
+            var membroViewModel = mapper.Map<MembroViewModel>(await service.BuscarPorId(id));
+
+            if (membroViewModel == null) return NotFound();            
+
+            return View(membroViewModel);
+        }
+
         public IActionResult CreateMembro()
         {
             return View(new MembroViewModel());
