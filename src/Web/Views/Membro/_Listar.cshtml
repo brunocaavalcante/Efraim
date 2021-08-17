@@ -22,10 +22,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CPF)
             </td>
+<<<<<<< HEAD
             <td>
                     <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam> </a>
                     <a disable-by-claim-name="Produto" disable-by-claim-value="Editar" class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam> </a>
                     <a disable-by-claim-name="Produto" disable-by-claim-value="Excluir" class="btn btn-danger"  asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam> </a>
+=======
+           <td class="text-right">
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+>>>>>>> develop
             </td>
         </tr>
 }

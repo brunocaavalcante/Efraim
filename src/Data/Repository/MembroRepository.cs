@@ -38,19 +38,32 @@ namespace Data.Repository
             return await Task.FromResult(lista);
         }
 
-        public Membro BuscarPorId(Guid Id)
+        public async Task<Membro> BuscarPorId(string Id)
         {
-            return new Membro();
+            Membro membro = new Membro();
+            var document = await this.ObterPorId(Id, path);     
+
+            if (document.Exists)
+            {                
+                membro.Id = document.Id;
+                membro.DataCadastro = document.GetValue<DateTime>("DataCadastro");
+                membro.DataNascimento = document.GetValue<DateTime>("DataNascimento");
+                membro.CPF = document.GetValue<string>("CPF");
+                membro.Nome = document.GetValue<string>("Nome");
+                membro.Telefone = document.GetValue<string>("Telefone");                
+            }
+            
+            return await Task.FromResult(membro);
         }
 
-        public void ExcluirMembro(Membro entity)
+        public async Task ExcluirMembro(Membro entity)
         {
-            throw new NotImplementedException();
+            await Remover(entity,path);
         }
 
-        public void AtualizarMembro(Membro entity)
+        public async Task AtualizarMembro(Membro entity)
         {
-            throw new NotImplementedException();
-        }        
+            await this.Atualizar(entity,path);
+        }      
     }
 }
