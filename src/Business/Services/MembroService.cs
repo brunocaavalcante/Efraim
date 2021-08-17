@@ -34,6 +34,7 @@ namespace Business.Services
         {
             entity.DataNascimento = DateTime.SpecifyKind(entity.DataNascimento,DateTimeKind.Utc);
             entity.DataCadastro = DateTime.SpecifyKind(entity.DataCadastro,DateTimeKind.Utc);
+            entity.CPF = entity.CPF.Replace(".","").Replace("-","");
             if (!ExecutarValidacao(new MembroValidation(), entity)) return;  
 
             await repository.AtualizarMembro(entity);

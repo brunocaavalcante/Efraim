@@ -22,7 +22,7 @@
             <span asp-validation-for="Nome" class="text-danger"></span>
 
             <label asp-for="CPF"></label>
-            <input asp-for="CPF" class="form-control" />
+            <input asp-for="CPF" class="form-control" id="cpf" />
             <span asp-validation-for="CPF" class="text-danger"></span>
 
             <label asp-for="DataNascimento"></label>
@@ -34,7 +34,7 @@
             <span asp-validation-for="DataCadastro" class="text-danger"></span>
 
             <label asp-for="Telefone"></label>
-            <input asp-for="Telefone" class="form-control" />
+            <input asp-for="Telefone" class="form-control" id="telefone" />
             <span asp-validation-for="Telefone" class="text-danger"></span>
         </div>       
     </div>
@@ -43,3 +43,13 @@
         <input type="submit" value="Salvar" class="btn btn-primary" />
     </div>
 </form>
+
+@section Scripts {
+      
+    <script>
+      $(document).ready(function(){
+        $("#cpf").mask("000.000.000-00");
+        $("#telefone").mask("(00) 00000 - 0000")
+      });
+    </script>   
+}

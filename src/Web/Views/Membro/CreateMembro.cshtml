@@ -17,7 +17,7 @@
   
   <div class="mb-3 form-group">
     <label asp-for="Telefone" class="control-label">Telefone:</label>
-    <input asp-for="Telefone" type="number" class="form-control" id="telefone">
+    <input asp-for="Telefone" type="text" class="form-control" id="telefone">
     <span asp-validation-for="Telefone" class="text-danger"></span>
   </div>
 
@@ -29,7 +29,7 @@
 
   <div class="mb-3 form-group">
     <label asp-for="CPF" class="form-label">CPF:</label>
-    <input type="number" asp-for="CPF" class="form-control" id="cpf">
+    <input type="text" asp-for="CPF" class="form-control" id="cpf">
     <span asp-validation-for="CPF" class="text-danger"></span>
   </div>
 
@@ -40,5 +40,11 @@
 </form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}   
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+      $(document).ready(function(){
+        $("#cpf").mask("000.000.000-00");
+        $("#telefone").mask("(00) 00000 - 0000")
+      });
+    </script>   
 }
