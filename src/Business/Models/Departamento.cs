@@ -19,5 +19,8 @@ namespace Business.Models
         [FirestoreProperty] 
         public List<Membro> Lider{ get; set; }
 
+        [FirestoreProperty] 
+        public Timestamp DataCadastro {get;set;}
+
     }
 }
