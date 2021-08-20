@@ -9,9 +9,9 @@ namespace Data.Repository
     {
         const string path = "departamentos";
 
-        public Task Adicionar(Departamento entity)
+        public async Task Adicionar(Departamento entity)
         {
-            throw new System.NotImplementedException();
+            await this.Adicionar(entity,path);
         }
 
         public Task Atualizar(Departamento entity)

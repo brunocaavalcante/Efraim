@@ -1,20 +1,27 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Business.Core.Intefaces;
+using Business.Core.Services;
 using Business.Interfaces;
 using Business.Models;
+using Business.Validations;
 
 namespace Business.Services
 {
-    public class DepartamentoService : IDepartamentoService
+    public class DepartamentoService : BaseService, IDepartamentoService
     {
-        public DepartamentoService()
+        private readonly IDepartamentoRepository repository;
+        public DepartamentoService(IDepartamentoRepository _repository,
+                                    INotificador _notificador):base(_notificador)
         {
-            
+            repository = _repository;
         }
         
-        public Task Adicionar(Departamento entity)
-        {
-            throw new System.NotImplementedException();
+        public async Task Adicionar(Departamento entity)
+        {            
+            if (!ExecutarValidacao(new DepartamentoValidation(), entity)) return;    
+         
+            await repository.Adicionar(entity);
         }
 
         public Task AdicionarMembro(Departamento entity, Membro membro)
