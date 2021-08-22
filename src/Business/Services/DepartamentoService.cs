@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Core.Intefaces;
@@ -18,7 +19,8 @@ namespace Business.Services
         }
         
         public async Task Adicionar(Departamento entity)
-        {            
+        { 
+            entity.DataCadastro = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);           
             if (!ExecutarValidacao(new DepartamentoValidation(), entity)) return;    
          
             await repository.Adicionar(entity);

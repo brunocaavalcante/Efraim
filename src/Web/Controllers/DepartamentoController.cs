@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Business.Core.Intefaces;
 using Business.Interfaces;
+using Business.Models;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 
@@ -24,6 +25,21 @@ namespace Web.Controllers
         {            
             //var lista = mapper.Map<List<DepartamentoViewModel>>(await service.Listar());
             return View(new List<DepartamentoViewModel>());
+        }
+
+        public IActionResult Create()
+        {
+            return View(new DepartamentoViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(DepartamentoViewModel viewModel)
+        {
+            await service.Adicionar(mapper.Map<Departamento>(viewModel));
+            
+            if(!OperacaoValida()) return View(viewModel);
+
+            return RedirectToAction("Index");
         }
 
     }

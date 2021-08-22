@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Business.Core.Models;
 using Google.Cloud.Firestore;
@@ -20,7 +21,7 @@ namespace Business.Models
         public List<Membro> Lider{ get; set; }
 
         [FirestoreProperty] 
-        public Timestamp DataCadastro {get;set;}
+        public DateTime DataCadastro {get;set;}
 
     }
 }

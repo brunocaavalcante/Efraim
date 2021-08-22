@@ -9,6 +9,7 @@ namespace Web.Configurations
         public AutoMapperConfig()
         {
             CreateMap<Membro, MembroViewModel>().ReverseMap();
+            CreateMap<Departamento, DepartamentoViewModel>().ReverseMap();
         }
     }
 }

@@ -1,0 +1,28 @@
+@model Web.Models.DepartamentoViewModel
+
+@{
+    ViewData["Title"] = "Criar Departamento";
+}
+<h3>Tela de Cadastro de Departamentos:</h3>
+
+<form asp-action="Create">
+
+  <vc:Erros></vc:Erros>
+
+  <div class="mb-3 form-group">
+    <label asp-for="Nome" class="control-label">Nome Departamento:</label>
+    <input asp-for="Nome" type="text" class="form-control" id="nome" aria-describedby="nome">
+    <span asp-validation-for="Nome" class="text-danger"></span>
+  </div>
+
+    <div class="mb-3 form-group">
+    <label asp-for="Descricao" class="control-label">Descricao Departamento:</label>
+    <input asp-for="Descricao" type="text" class="form-control" id="Descricao" aria-describedby="Descricao">
+    <span asp-validation-for="Descricao" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3 form-group">
+    <a class="btn btn-info" asp-action="Index">Voltar</a>
+    <button type="submit" class="btn btn-primary">Salvar</button>    
+  </div>  
+</form>
