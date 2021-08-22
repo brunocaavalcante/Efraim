@@ -41,9 +41,9 @@ namespace Business.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<List<Departamento>> Listar()
+        public async Task<List<Departamento>> Listar()
         {
-            throw new System.NotImplementedException();
+            return await repository.Listar();
         }
 
         public Task RemoverMembro(Departamento entity, Membro membro)

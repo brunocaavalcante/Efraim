@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Interfaces;
 using Business.Models;
+using Google.Cloud.Firestore;
 
 namespace Data.Repository
 {
@@ -24,9 +26,9 @@ namespace Data.Repository
             throw new System.NotImplementedException();
         }
 
-        public Task<List<Departamento>> Listar()
+        public async Task<List<Departamento>> Listar()
         {
-            throw new System.NotImplementedException();
+            return await this.Listar(path);            
         }
     }
 }

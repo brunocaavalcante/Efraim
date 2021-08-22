@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Business.Core.Models;
 using Google.Cloud.Firestore;
 
 namespace Data.Repository
 {
-    public abstract class BaseRepository<TEntity> where TEntity : Entity
+    public abstract class BaseRepository<TEntity> where TEntity : Entity, new()
     {
         protected FirestoreDb Db;
       
@@ -37,32 +38,39 @@ namespace Data.Repository
             await document.SetAsync(entity, SetOptions.Overwrite);          
         }
         
-        protected virtual async Task<DocumentSnapshot> ObterPorId(string id,string path)
+        protected virtual async Task<TEntity> ObterPorId(string id,string path)
         {
-            try
+            Db = Conexao();
+            DocumentReference docRef = Db.Collection(path).Document(id);
+            var document = await docRef.GetSnapshotAsync();
+            var entity = new TEntity();
+
+            if (document.Exists)
             {
-                Db = Conexao();
-                DocumentReference docRef = Db.Collection(path).Document(id);
-                return await docRef.GetSnapshotAsync();               
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+                entity = document.ConvertTo<TEntity>();                
+                entity.Id = document.Id;                               
+            }  
+            return await Task.FromResult(entity);       
         }
         
-        protected virtual async Task<QuerySnapshot> Listar(string path)
+        protected virtual async Task<List<TEntity>> Listar(string path)
         {
             this.Db = Conexao();
-            var usersRef = Db.Collection(path);          
-            try
+            var usersRef = Db.Collection(path);         
+            var snapshot = await usersRef.GetSnapshotAsync();
+            var lista = new List<TEntity>();
+
+            foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                return await usersRef.GetSnapshotAsync();               
+                if(document.Exists)
+                {
+                    TEntity entity = document.ConvertTo<TEntity>();
+                    entity.Id = document.Id;                        
+                    lista.Add(entity);
+                }
             }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+
+            return await Task.FromResult(lista);
         }
     }  
 }

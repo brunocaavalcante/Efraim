@@ -23,8 +23,8 @@ namespace Web.Controllers
 
         public async Task<IActionResult> Index()
         {            
-            //var lista = mapper.Map<List<DepartamentoViewModel>>(await service.Listar());
-            return View(new List<DepartamentoViewModel>());
+            var lista = mapper.Map<List<DepartamentoViewModel>>(await service.Listar());
+            return View(lista);
         }
 
         public IActionResult Create()
