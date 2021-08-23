@@ -16,9 +16,14 @@ namespace Data.Repository
             await this.Adicionar(entity,path);
         }
 
-        public Task Atualizar(Departamento entity)
+        public async Task Atualizar(Departamento entity)
         {
-            throw new System.NotImplementedException();
+            await this.Atualizar(entity, path);
+        }
+
+        public async Task<Departamento> BuscarPorId(string id)
+        {
+            return await this.ObterPorId(id, path);
         }
 
         public Task Excluir(Departamento entity)

@@ -10,5 +10,6 @@ namespace Business.Interfaces
         Task Atualizar(Departamento entity);
         Task Excluir(Departamento entity);
         Task<List<Departamento>> Listar();
+        Task<Departamento> BuscarPorId(string id);
    } 
 }

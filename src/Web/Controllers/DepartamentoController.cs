@@ -42,5 +42,30 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> Edit(string id)
+        {
+            var departamentoViewModel = mapper.Map<DepartamentoViewModel>(await service.BuscarPorId(id));
+
+            if (departamentoViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(departamentoViewModel);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Edit(DepartamentoViewModel departamentoViewModel)
+        {
+            if (!ModelState.IsValid) return View(departamentoViewModel); 
+
+            var departamento = mapper.Map<Departamento>(departamentoViewModel);
+            await service.Atualizar(departamento);         
+
+            if (!OperacaoValida()) return View(departamentoViewModel);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

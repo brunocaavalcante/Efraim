@@ -31,9 +31,12 @@ namespace Business.Services
             throw new System.NotImplementedException();
         }
 
-        public Task Atualizar(Departamento entity)
+        public async Task Atualizar(Departamento entity)
         {
-            throw new System.NotImplementedException();
+            entity.DataCadastro = DateTime.SpecifyKind(entity.DataCadastro,DateTimeKind.Utc);
+            if (!ExecutarValidacao(new DepartamentoValidation(), entity)) return;
+            
+            await repository.Atualizar(entity);
         }
 
         public Task Excluir(Departamento entity)
@@ -49,6 +52,13 @@ namespace Business.Services
         public Task RemoverMembro(Departamento entity, Membro membro)
         {
             throw new System.NotImplementedException();
+        }    
+
+        public async Task<Departamento> BuscarPorId(string id)
+        {
+            return await repository.BuscarPorId(id);
         }
+
+       
     }
 }
