@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models
 {
-    public class MembroViewModel
+    public class MembroViewModel : EntityViewModel
     {
         public string Id { get; set; }
         
@@ -23,7 +23,9 @@ namespace Web.Models
         public DateTime DataCadastro { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public string Telefone { get; set; }
+        public string Telefone { get; set; }      
 
+        public bool checkedMembro { get; set; }
+      
     }
 }

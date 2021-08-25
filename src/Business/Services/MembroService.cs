@@ -52,7 +52,7 @@ namespace Business.Services
 
         public async Task<List<Membro>> ListarTodos()
         {
-            return await repository.ListarTodos();
+            return await repository.ListarTodos();            
         }
     }
 }

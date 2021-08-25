@@ -12,13 +12,17 @@ namespace Web.Controllers
     public class DepartamentoController : BaseController
     {
         private readonly IDepartamentoService service;
+        private readonly IMembroService membroService;
         private readonly IMapper mapper;
         public DepartamentoController(IDepartamentoService _service,
+                                      IMembroService _membroService,
                                       IMapper _mapper, 
                                       INotificador notificador) : base(notificador)
         {
             service = _service;
+            membroService = _membroService;
             mapper = _mapper;
+            ViewBag.Modulo = "Departamento";
         }
 
         public async Task<IActionResult> Index()
@@ -27,7 +31,7 @@ namespace Web.Controllers
             return View(lista);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View(new DepartamentoViewModel());
         }
@@ -40,6 +44,17 @@ namespace Web.Controllers
             if(!OperacaoValida()) return View(viewModel);
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            var departamentoViewModel = mapper.Map<DepartamentoViewModel>(await service.BuscarPorId(id));
+            departamentoViewModel.ListaMembros = mapper.Map<List<MembroViewModel>>(await membroService.ListarTodos());
+            ViewBag.ExibirAcoes = false;
+            
+            if (departamentoViewModel == null) return NotFound();            
+
+            return View(departamentoViewModel);
         }
 
         public async Task<IActionResult> Edit(string id)

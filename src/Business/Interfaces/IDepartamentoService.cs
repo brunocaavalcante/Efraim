@@ -4,7 +4,7 @@ using Business.Models;
 
 namespace Business.Interfaces
 {
-    public interface IDepartamentoService : IDepartamentoRepository
+    public interface IDepartamentoService
     {
         Task Adicionar(Departamento entity);
         Task Atualizar(Departamento entity);

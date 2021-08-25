@@ -1,0 +1,72 @@
+@model Web.Models.DepartamentoViewModel
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Informação somente leitura</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+           <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>      
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DataCadastro)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataCadastro)
+        </dd>        
+    </dl>
+
+    <div class="card">
+        <div class="card-header">
+            Membros
+            @if(Model.Membros.Count > 0){<partial name="../Membro/_Listar" model="Model.Membros"/>}            
+        </div>
+        <div class="card-body">
+            <p class="card-text">Clique no botão abaixo para adicionar membros ao departamento.</p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#membroModal">Adicionar Membros</button>
+        </div>
+    </div><br><br>
+
+    <div class="modal fade" id="membroModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Membros:</h2>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">                                   
+                    @if(Model.ListaMembros != null && Model.ListaMembros.Count > 0)
+                    {
+                        <partial name="../Membro/_Listar" model="Model.ListaMembros"/>
+                    }                        
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--region botoes--->
+<div>
+    <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+    <a class="btn btn-info" asp-action="Index">Voltar</a>
+</div>

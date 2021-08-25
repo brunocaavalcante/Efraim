@@ -23,8 +23,9 @@ namespace Web.Controllers
         }
 
         public async Task<IActionResult> Index()
-        {            
-            var lista = mapper.Map<List<MembroViewModel>>(await service.ListarTodos());
+        {           
+            var lista =  mapper.Map<List<MembroViewModel>>(await service.ListarTodos());
+            ViewBag.ExibirAcoes = true;
             return View(lista);
         }
     

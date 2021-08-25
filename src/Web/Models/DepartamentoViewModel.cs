@@ -13,6 +13,8 @@ namespace Web.Models
 
         public List<MembroViewModel> Membros{ get; set; }
 
+        public List<MembroViewModel> ListaMembros{ get; set; }
+
         public List<MembroViewModel> Lider{ get; set; }
 
         public DateTime DataCadastro { get; set; }

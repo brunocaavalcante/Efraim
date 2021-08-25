@@ -1,13 +1,13 @@
-@model List<Web.Models.MembroViewModel>
+@model IEnumerable<Web.Models.MembroViewModel>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model[0].Nome)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].CPF)
+                @Html.DisplayNameFor(model => model.CPF)
             </th>            
             <th></th>
         </tr>
@@ -22,11 +22,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CPF)
             </td>
-           <td class="text-right">
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
-            </td>
+            
+            @if(ViewBag.ExibirAcoes)
+            {
+                <td class="text-right">
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
+                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+                </td>
+            }
+            else
+            {
+                <td class="text-right">
+                    <input type="checkbox"/> 
+                </td>                  
+            }
         </tr>
 }
     </tbody>
