@@ -1,13 +1,13 @@
-@model List<Web.Models.DepartamentoViewModel>
+@model IEnumerable<Web.Models.DepartamentoViewModel>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model[0].Nome)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].Descricao)
+                @Html.DisplayNameFor(model => model.Descricao)
             </th>            
             <th></th>
         </tr>

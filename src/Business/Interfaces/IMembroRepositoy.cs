@@ -12,5 +12,6 @@ namespace Business.Interfaces
         Task AtualizarMembro(Membro entity);
         Task<List<Membro>> ListarTodos();
         Task<Membro> BuscarPorId(string Id);
+        Task<Membro> BuscarPorColuna(string nomeColuna, string valor);
     }
 }

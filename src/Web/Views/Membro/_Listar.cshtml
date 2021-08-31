@@ -1,6 +1,6 @@
 @model IEnumerable<Web.Models.MembroViewModel>
 
-<table class="table">
+<table class="table table-hover">
     <thead class="thead-dark">
         <tr>
             <th>
@@ -13,31 +13,21 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model)
-{
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CPF)
-            </td>
-            
-            @if(ViewBag.ExibirAcoes)
-            {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CPF)
+                </td>
                 <td class="text-right">
                     <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
                     <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
-                </td>
-            }
-            else
-            {
-                <td class="text-right">
-                    <input type="checkbox"/> 
-                </td>                  
-            }
-        </tr>
-}
+                </td>                                          
+            </tr>
+        }
     </tbody>
 </table>

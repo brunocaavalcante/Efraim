@@ -19,11 +19,11 @@ namespace Web.Controllers
                                 INotificador notificador):base(notificador)
         {
             service = _service;
-            mapper = _mapper;
+            mapper = _mapper;             
         }
 
         public async Task<IActionResult> Index()
-        {           
+        {         
             var lista =  mapper.Map<List<MembroViewModel>>(await service.ListarTodos());
             ViewBag.ExibirAcoes = true;
             return View(lista);

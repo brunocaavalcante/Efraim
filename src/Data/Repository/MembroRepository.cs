@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class MembroRepository : BaseRepository<Membro>,IMembroRepository
+    public class MembroRepository : BaseRepository<Membro>, IMembroRepository
     {
         const string path = "membros";
     
@@ -22,6 +22,11 @@ namespace Data.Repository
         public async Task<Membro> BuscarPorId(string Id)
         {
             return await this.ObterPorId(Id, path);    
+        }
+
+        public async Task<Membro> BuscarPorColuna(string nomeColuna, string valor)
+        {
+           return await BuscarPorColuna(path, nomeColuna, valor);
         }
 
         public async Task ExcluirMembro(Membro entity)

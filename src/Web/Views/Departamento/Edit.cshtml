@@ -10,7 +10,7 @@
 
 <form asp-action="Edit">
 
-    <vc:Summary></vc:Summary>
+    <vc:Erros></vc:Erros>
 
     <input type="hidden" asp-for="Id" />
 
@@ -27,7 +27,17 @@
 
             <label asp-for="DataCadastro"></label>
             <input asp-for="DataCadastro" class="form-control" />
-            <span asp-validation-for="DataCadastro" class="text-danger"></span>
+            <span asp-validation-for="DataCadastro" class="text-danger"></span><br>           
+
+            <div class="card">
+                <div class="card-header">                    
+                    @if(Model.Membros != null && Model.Membros.Count > 0){ <partial name="_AdicionarMembro" model="Model"/> }            
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Clique no botão abaixo para adicionar membros ao departamento.</p>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#membroAddModal">Adicionar Membros</button>
+                </div>
+            </div>
         </div>       
     </div>
 
@@ -35,3 +45,28 @@
         <input type="submit" value="Salvar" class="btn btn-primary" />
     </div>
 </form>
+
+<div class="modal fade" id="membroAddModal">       
+    <form asp-controller="departamento" asp-action="AdicionarMembro">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Buscar membro por CPF:</h3>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> 
+                    <input type="hidden" asp-for="Id" />  
+                    <div class="mb-3 form-group">
+                        <label class="form-label">CPF:</label>
+                        <input asp-for="Membro.CPF" type="text" class="form-control" id="cpf">                   
+                    </div>                                         
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Adicionar Membro" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </form>  
+</div>

@@ -52,6 +52,23 @@ namespace Data.Repository
             }  
             return await Task.FromResult(entity);       
         }
+
+        protected virtual async Task<TEntity> BuscarPorColuna(string path, string coluna, string value)
+        {
+            Db = Conexao();
+            var docRef = Db.Collection(path);
+            var query = docRef.WhereEqualTo(coluna, value);
+            var document = await query.GetSnapshotAsync();
+            var entity = new TEntity();
+
+            foreach (DocumentSnapshot item in document.Documents)
+            {
+                entity = item.ConvertTo<TEntity>();                
+                entity.Id = item.Id;
+            }
+           
+            return await Task.FromResult(entity);
+        }
         
         protected virtual async Task<List<TEntity>> Listar(string path)
         {

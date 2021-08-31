@@ -21,8 +21,7 @@ namespace Web.Controllers
         {
             service = _service;
             membroService = _membroService;
-            mapper = _mapper;
-            ViewBag.Modulo = "Departamento";
+            mapper = _mapper;                     
         }
 
         public async Task<IActionResult> Index()
@@ -31,8 +30,19 @@ namespace Web.Controllers
             return View(lista);
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> AdicionarMembro(DepartamentoViewModel departamentoViewModel)
         {
+            var departamento = await service.BuscarPorId(departamentoViewModel.Id);
+            var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF);
+            
+            await service.AdicionarMembro(departamento, membro);
+            if(!OperacaoValida()) return View("Edit", departamentoViewModel);
+
+            return RedirectToAction("Edit", new { id = departamento.Id } );
+        }
+
+        public async Task<IActionResult> Create()
+        {  
             return View(new DepartamentoViewModel());
         }
 
@@ -48,10 +58,7 @@ namespace Web.Controllers
 
         public async Task<IActionResult> Details(string id)
         {
-            var departamentoViewModel = mapper.Map<DepartamentoViewModel>(await service.BuscarPorId(id));
-            departamentoViewModel.ListaMembros = mapper.Map<List<MembroViewModel>>(await membroService.ListarTodos());
-            ViewBag.ExibirAcoes = false;
-            
+            var departamentoViewModel = mapper.Map<DepartamentoViewModel>(await service.BuscarPorId(id));          
             if (departamentoViewModel == null) return NotFound();            
 
             return View(departamentoViewModel);

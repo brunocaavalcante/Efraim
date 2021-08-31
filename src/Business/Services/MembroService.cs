@@ -40,6 +40,11 @@ namespace Business.Services
             await repository.AtualizarMembro(entity);
         }
 
+        public async Task<Membro> BuscarPorColuna(string nomeColuna, string valor)
+        {
+            return await repository.BuscarPorColuna(nomeColuna, valor);
+        }
+
         public async Task<Membro> BuscarPorId(string Id)
         {
             return await repository.BuscarPorId(Id);

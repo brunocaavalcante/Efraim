@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Extensions
 {
-    public class ErrosViewComponent:ViewComponent
+    public class ErrosViewComponent : ViewComponent
     {
         private readonly INotificador _notificador;
         public ErrosViewComponent(INotificador notificador)

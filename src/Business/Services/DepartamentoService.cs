@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Business.Core.Intefaces;
 using Business.Core.Services;
@@ -26,9 +27,19 @@ namespace Business.Services
             await repository.Adicionar(entity);
         }
 
-        public Task AdicionarMembro(Departamento entity, Membro membro)
+        public async Task AdicionarMembro(Departamento entity, Membro membro)
         {
-            throw new System.NotImplementedException();
+            bool membroJaExiste = entity.Membros.Where(m => m.CPF == membro.CPF).Any();
+
+            if(!membroJaExiste)
+            {
+                entity.Membros.Add(membro);            
+                await Atualizar(entity);
+            }
+            else
+            {
+                Notificar("Membro já é participante deste departamento!");   
+            }            
         }
 
         public async Task Atualizar(Departamento entity)
