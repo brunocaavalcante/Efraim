@@ -1,5 +1,4 @@
-@using Web.Extensions
-@model Web.Models.MembroViewModel
+@model Web.Models.DepartamentoViewModel
 
 @{
     ViewData["Title"] = "Detalhes";
@@ -17,32 +16,22 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CPF)
+           <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
         </dt>
         <dd class="col-sm-10">
-           @this.FormatarCpf(Model.CPF)
-        </dd> 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataNascimento)
-        </dd>   
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Telefone)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Telefone)
-        </dd>   
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>      
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DataCadastro)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DataCadastro)
         </dd>        
-    </dl>
+    </dl>  
 </div>
+
+<!--region botoes--->
 <div>
     <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
     <a class="btn btn-info" asp-action="Index">Voltar</a>

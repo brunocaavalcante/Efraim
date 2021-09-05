@@ -9,6 +9,8 @@ namespace Business.Core.Validations.Documentos
         public const int TamanhoCpf = 11;
         public static bool Validar(string cpf)
         {
+            if(string.IsNullOrEmpty(cpf)) return false;
+            
             var cpfNumeros = Utils.ApenasNumeros(cpf);
 
             if (!TamanhoValido(cpfNumeros)) return false;

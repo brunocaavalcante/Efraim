@@ -30,29 +30,18 @@ namespace Business.Services
             await repository.AdicionarMembro(entity);
         }
 
-<<<<<<< HEAD
-        public void AtualizarMembro(Membro entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Membro BuscarPorId(Guid Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ExcluirMembro(Membro entity)
-        {
-            throw new NotImplementedException();
-=======
         public async Task AtualizarMembro(Membro entity)
         {
             entity.DataNascimento = DateTime.SpecifyKind(entity.DataNascimento,DateTimeKind.Utc);
             entity.DataCadastro = DateTime.SpecifyKind(entity.DataCadastro,DateTimeKind.Utc);
-            entity.CPF = entity.CPF.Replace(".","").Replace("-","");
-            if (!ExecutarValidacao(new MembroValidation(), entity)) return;  
+           if (!ExecutarValidacao(new MembroValidation(), entity)) return;  
 
             await repository.AtualizarMembro(entity);
+        }
+
+        public async Task<Membro> BuscarPorColuna(string nomeColuna, string valor)
+        {
+            return await repository.BuscarPorColuna(nomeColuna, valor);
         }
 
         public async Task<Membro> BuscarPorId(string Id)
@@ -63,12 +52,11 @@ namespace Business.Services
         public async Task ExcluirMembro(Membro entity)
         {
            await repository.ExcluirMembro(entity);
->>>>>>> develop
         }
 
         public async Task<List<Membro>> ListarTodos()
         {
-            return await repository.ListarTodos();
+            return await repository.ListarTodos();            
         }
     }
 }

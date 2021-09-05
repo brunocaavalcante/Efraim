@@ -2,3 +2,13 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+$(document).ready(function(){
+   IncluirMask();
+});
+
+
+function IncluirMask()
+{
+    $("#cpf").mask("000.000.000-00");
+    $("#telefone").mask("(00) 00000 - 0000");
+}

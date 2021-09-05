@@ -10,6 +10,7 @@ bin/
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 docs/runtimes/
+efraim-key.json
 # User-specific files
 *.rsuser
 *.suo
