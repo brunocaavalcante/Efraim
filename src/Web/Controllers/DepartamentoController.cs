@@ -80,7 +80,29 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
 
-#region Membro
+        public async Task<IActionResult> Delete(string id)
+        {
+            var departamentoViewModel = mapper.Map<DepartamentoViewModel>(await service.BuscarPorId(id));
+            if (departamentoViewModel == null) return NotFound();
+
+            return View(departamentoViewModel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var departamento = await service.BuscarPorId(id);
+
+            if (departamento == null) return NotFound();
+
+            await service.Excluir(departamento);
+
+            if (!OperacaoValida()) return View(departamento);
+
+            return RedirectToAction("Index");
+        }
+
+        #region Membro
         [HttpPost]
         public async Task<IActionResult> AdicionarMembro(DepartamentoViewModel departamentoViewModel)
         {
@@ -104,6 +126,6 @@ namespace Web.Controllers
             return RedirectToAction("Edit", new { id = departamento.Id } );
         }
 
-#endregion
+        #endregion
     }
 }
