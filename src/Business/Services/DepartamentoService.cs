@@ -60,9 +60,11 @@ namespace Business.Services
             return await repository.Listar();
         }
 
-        public Task RemoverMembro(Departamento entity, Membro membro)
+        public async Task RemoverMembro(Departamento entity, Membro membro)
         {
-            throw new System.NotImplementedException();
+            membro = entity.Membros.Where(m => m.CPF == membro.CPF).FirstOrDefault();
+            entity.Membros.Remove(membro);
+            await Atualizar(entity);
         }    
 
         public async Task<Departamento> BuscarPorId(string id)

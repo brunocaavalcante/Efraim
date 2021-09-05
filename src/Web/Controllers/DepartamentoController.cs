@@ -30,17 +30,6 @@ namespace Web.Controllers
             return View(lista);
         }
 
-        public async Task<IActionResult> AdicionarMembro(DepartamentoViewModel departamentoViewModel)
-        {
-            var departamento = await service.BuscarPorId(departamentoViewModel.Id);
-            var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF);
-            
-            await service.AdicionarMembro(departamento, membro);
-            if(!OperacaoValida()) return View("Edit", departamentoViewModel);
-
-            return RedirectToAction("Edit", new { id = departamento.Id } );
-        }
-
         public async Task<IActionResult> Create()
         {  
             return View(new DepartamentoViewModel());
@@ -82,6 +71,8 @@ namespace Web.Controllers
             if (!ModelState.IsValid) return View(departamentoViewModel); 
 
             var departamento = mapper.Map<Departamento>(departamentoViewModel);
+            departamento.Membros = (await service.BuscarPorId(departamentoViewModel.Id)).Membros;
+
             await service.Atualizar(departamento);         
 
             if (!OperacaoValida()) return View(departamentoViewModel);
@@ -89,5 +80,30 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
 
+#region Membro
+        [HttpPost]
+        public async Task<IActionResult> AdicionarMembro(DepartamentoViewModel departamentoViewModel)
+        {
+            ModelState.Remove("Nome");
+            var departamento = await service.BuscarPorId(departamentoViewModel.Id);
+            var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF.Replace("-","").Replace(".",""));            
+            
+            await service.AdicionarMembro(departamento, membro);
+            if(!OperacaoValida()) return View("Edit", mapper.Map<DepartamentoViewModel>(departamento));
+
+            return RedirectToAction("Edit", new { id = departamento.Id } );
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoverMembro(DepartamentoViewModel departamentoViewModel)
+        {
+            var departamento = await service.BuscarPorId(departamentoViewModel.Id);
+            var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF.Replace("-","").Replace(".",""));
+            
+            await service.RemoverMembro(departamento, membro);
+            return RedirectToAction("Edit", new { id = departamento.Id } );
+        }
+
+#endregion
     }
 }

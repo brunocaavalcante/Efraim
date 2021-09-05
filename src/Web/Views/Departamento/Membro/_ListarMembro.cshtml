@@ -1,3 +1,4 @@
+@using Web.Extensions
 @model Web.Models.DepartamentoViewModel
 
 <table class="table">
@@ -14,20 +15,22 @@
     </thead>
     <tbody>
         @foreach (var item in Model.Membros)
-        {
+        {            
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CPF)
+                    @this.FormatarCpf(item.CPF)
                 </td>
                 <td class="text-right">
-                    <a class="btn btn-danger" asp-action="DeleteMembro" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+                    <form id="formRemoverMembro" asp-controller="departamento" asp-action="RemoverMembro">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="Membro.CPF" value="@item.CPF" />
+                        <button id="btnRemoverMembro" class="btn btn-danger">Remover</button>   
+                    </form>                        
                 </td>                                            
             </tr>
         }
     </tbody>
 </table>
-
-
