@@ -26,9 +26,9 @@ namespace Data.Repository
             return await this.ObterPorId(id, path);
         }
 
-        public Task Excluir(Departamento entity)
+        public async Task Excluir(Departamento entity)
         {
-            throw new System.NotImplementedException();
+            await this.Remover(entity, path);
         }
 
         public async Task<List<Departamento>> Listar()

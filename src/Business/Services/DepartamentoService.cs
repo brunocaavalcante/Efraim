@@ -14,16 +14,16 @@ namespace Business.Services
     {
         private readonly IDepartamentoRepository repository;
         public DepartamentoService(IDepartamentoRepository _repository,
-                                    INotificador _notificador):base(_notificador)
+                                    INotificador _notificador) : base(_notificador)
         {
             repository = _repository;
         }
-        
+
         public async Task Adicionar(Departamento entity)
-        { 
-            entity.DataCadastro = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);           
-            if (!ExecutarValidacao(new DepartamentoValidation(), entity)) return;    
-         
+        {
+            entity.DataCadastro = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+            if (!ExecutarValidacao(new DepartamentoValidation(), entity)) return;
+
             await repository.Adicionar(entity);
         }
 
@@ -31,28 +31,28 @@ namespace Business.Services
         {
             bool membroJaExiste = entity.Membros.Where(m => m.CPF == membro.CPF).Any();
 
-            if(!membroJaExiste)
+            if (!membroJaExiste)
             {
-                entity.Membros.Add(membro);            
+                entity.Membros.Add(membro);
                 await Atualizar(entity);
             }
             else
             {
-                Notificar("Membro já é participante deste departamento!");   
-            }            
+                Notificar("Membro já é participante deste departamento!");
+            }
         }
 
         public async Task Atualizar(Departamento entity)
         {
-            entity.DataCadastro = DateTime.SpecifyKind(entity.DataCadastro,DateTimeKind.Utc);
+            entity.DataCadastro = DateTime.SpecifyKind(entity.DataCadastro, DateTimeKind.Utc);
             if (!ExecutarValidacao(new DepartamentoValidation(), entity)) return;
-            
+
             await repository.Atualizar(entity);
         }
 
-        public Task Excluir(Departamento entity)
+        public async Task Excluir(Departamento entity)
         {
-            throw new System.NotImplementedException();
+            await repository.Excluir(entity);
         }
 
         public async Task<List<Departamento>> Listar()
@@ -65,13 +65,13 @@ namespace Business.Services
             membro = entity.Membros.Where(m => m.CPF == membro.CPF).FirstOrDefault();
             entity.Membros.Remove(membro);
             await Atualizar(entity);
-        }    
+        }
 
         public async Task<Departamento> BuscarPorId(string id)
         {
             return await repository.BuscarPorId(id);
         }
 
-       
+
     }
 }
