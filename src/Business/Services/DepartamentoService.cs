@@ -72,6 +72,24 @@ namespace Business.Services
             return await repository.BuscarPorId(id);
         }
 
+        public async Task AdicionarLider(Departamento entity, Membro lider)
+        {
+            bool liderJaExiste = entity.Lideres.Where(m => m.CPF == lider.CPF).Any();
 
+            if (!liderJaExiste)
+            {
+                entity.Lideres.Add(lider);
+                await Atualizar(entity);
+            }
+            else
+            {
+                Notificar("Lider já adicionado ao departamento!");
+            }
+        }
+
+        public Task RemoverLider(Departamento entity, Membro lider)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

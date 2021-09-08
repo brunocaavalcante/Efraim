@@ -72,6 +72,7 @@ namespace Web.Controllers
 
             var departamento = mapper.Map<Departamento>(departamentoViewModel);
             departamento.Membros = (await service.BuscarPorId(departamentoViewModel.Id)).Membros;
+            departamento.Lideres = (await service.BuscarPorId(departamentoViewModel.Id)).Lideres;
 
             await service.Atualizar(departamento);         
 
@@ -126,6 +127,32 @@ namespace Web.Controllers
             return RedirectToAction("Edit", new { id = departamento.Id } );
         }
 
+        #endregion
+
+        #region Lider
+        [HttpPost]
+        public async Task<IActionResult> AdicionarLider(DepartamentoViewModel departamentoViewModel)
+        {
+            ModelState.Remove("Nome");
+
+            var departamento = await service.BuscarPorId(departamentoViewModel.Id);
+            var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF.Replace("-", "").Replace(".", ""));
+
+            await service.AdicionarLider(departamento, membro);
+            if (!OperacaoValida()) return View("Edit", mapper.Map<DepartamentoViewModel>(departamento));
+
+            return RedirectToAction("Edit", new { id = departamento.Id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoverLider(DepartamentoViewModel departamentoViewModel)
+        {
+            var departamento = await service.BuscarPorId(departamentoViewModel.Id);
+            var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF.Replace("-", "").Replace(".", ""));
+
+            await service.RemoverLider(departamento, membro);
+            return RedirectToAction("Edit", new { id = departamento.Id });
+        }
         #endregion
     }
 }

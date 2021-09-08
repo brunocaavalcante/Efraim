@@ -8,6 +8,11 @@ namespace Business.Models
     [FirestoreData] 
     public class Departamento : Entity
     {
+        public Departamento()
+        {
+            Lideres = new List<Membro>();
+            Membros = new List<Membro>();
+        }
         [FirestoreProperty] 
         public string Nome{ get; set;}
         
@@ -18,7 +23,7 @@ namespace Business.Models
         public List<Membro> Membros{ get; set; }
 
         [FirestoreProperty] 
-        public List<Membro> Lider{ get; set; }
+        public List<Membro> Lideres{ get; set; }
 
         [FirestoreProperty] 
         public DateTime DataCadastro {get;set;}

@@ -13,5 +13,7 @@ namespace Business.Interfaces
         Task<Departamento> BuscarPorId(string id);       
         Task AdicionarMembro(Departamento entity, Membro membro);
         Task RemoverMembro(Departamento entity, Membro membro);
+        Task AdicionarLider(Departamento entity, Membro lider);
+        Task RemoverLider(Departamento entity, Membro lider);
     }
 }
