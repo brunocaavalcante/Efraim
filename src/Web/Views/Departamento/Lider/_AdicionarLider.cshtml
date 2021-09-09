@@ -1,0 +1,27 @@
+@model Web.Models.DepartamentoViewModel
+
+<div class="modal fade" id="liderAddModal">       
+    <form asp-controller="departamento" asp-action="AdicionarLider">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Buscar membro por CPF:</h3>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> 
+                    <input type="hidden" asp-for="Id" />  
+                    <div class="mb-3 form-group">
+                        <label asp-for="Membro.CPF" class="form-label">CPF:</label>
+                        <input type="text" asp-for="Membro.CPF" class="form-control" id="cpf">
+                        <span asp-validation-for="Membro.CPF" class="text-danger"></span>
+                    </div>                                     
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Adicionar Lider" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </form>  
+</div>

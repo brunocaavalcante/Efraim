@@ -11,7 +11,7 @@ namespace Web.Models
         {
             Membro = new MembroViewModel();
             Membros = new List<MembroViewModel>();
-            Lider = new List<MembroViewModel>();
+            Lideres = new List<MembroViewModel>();
         }
         public string Id { get; set; }
         
@@ -25,7 +25,7 @@ namespace Web.Models
 
         public List<MembroViewModel> Membros{ get; set; }
 
-        public List<MembroViewModel> Lider{ get; set; }
+        public List<MembroViewModel> Lideres { get; set; }
 
         public DateTime DataCadastro { get; set; }
     }

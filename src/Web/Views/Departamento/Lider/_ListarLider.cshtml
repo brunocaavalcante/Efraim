@@ -1,0 +1,36 @@
+﻿@using Web.Extensions
+@model Web.Models.DepartamentoViewModel
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Membro.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Membro.CPF)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Lideres)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @this.FormatarCpf(item.CPF)
+                </td>
+                <td class="text-right">
+                    <form id="formRemoverLider" asp-controller="departamento" asp-action="RemoverLider">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="Membro.CPF" value="@item.CPF" />
+                        <button id="btnRemoverLider" class="btn btn-danger">Remover</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

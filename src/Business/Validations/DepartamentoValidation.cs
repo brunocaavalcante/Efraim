@@ -18,7 +18,7 @@ namespace Business.Validations
             RuleForEach<Membro>(m => m.Membros)
                 .SetValidator(new MembroValidation());
 
-             RuleForEach<Membro>(m => m.Lider)
+             RuleForEach<Membro>(m => m.Lideres)
                 .SetValidator(new MembroValidation());  
         }
     }

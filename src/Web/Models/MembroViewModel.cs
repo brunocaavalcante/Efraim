@@ -25,7 +25,7 @@ namespace Web.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Telefone { get; set; }      
 
-        public bool checkedMembro { get; set; }
+        public bool Lider { get; set; }
       
     }
 }
