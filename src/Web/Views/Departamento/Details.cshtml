@@ -16,19 +16,44 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-           <dt class="col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Descricao)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Descricao)
-        </dd>      
+        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DataCadastro)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DataCadastro)
-        </dd>        
-    </dl>  
+        </dd>
+    </dl>
+    <h4>Líderes</h4>
+    <dl class="row">
+        @foreach (var item in Model.Lideres)
+        {
+            <dt class="col-sm-2">
+                Nome:
+            </dt>
+            <dd class="col-sm-10">
+                @item.Nome
+            </dd>
+        }
+    </dl>
+
+    <h4>Membros</h4>
+    <dl class="row">
+        @foreach (var item in Model.Membros)
+        {
+            <dt class="col-sm-2">
+                Nome:
+            </dt>
+            <dd class="col-sm-10">
+                @item.Nome
+            </dd>
+        }
+    </dl>
 </div>
 
 <!--region botoes--->
