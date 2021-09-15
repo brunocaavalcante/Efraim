@@ -17,7 +17,8 @@ namespace Web.Models
         
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Nome{ get; set;}
-
+        
+        [Display(Name = "Descrição")]
         public string Descricao {get;set;}
         
         [ValidateNever]

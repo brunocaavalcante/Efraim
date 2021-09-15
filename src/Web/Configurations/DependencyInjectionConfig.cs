@@ -16,6 +16,8 @@ namespace Web.Configurations
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IDepartamentoService, DepartamentoService>();
             services.AddScoped<IDepartamentoRepository, DepartamentoRepository>();
+            services.AddScoped<IProjetoService, ProjetoService>();
+            services.AddScoped<IProjetoRepository, ProjetoRepository>();
 
             return services;
         }

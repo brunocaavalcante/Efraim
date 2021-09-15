@@ -7,5 +7,8 @@ namespace Business.Core.Models
     {
         [FirestoreProperty] 
         public string Id { get; set; }
+
+        [FirestoreProperty]
+        public DateTime DataCadastro { get => DateTime.Now; }
     }
 }
