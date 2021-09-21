@@ -1,5 +1,4 @@
-﻿@using Web.Extensions
-@model IEnumerable<Web.Models.ProjetoViewModel>
+﻿@model IEnumerable<Web.Models.ProjetoViewModel>
 
 <table class="table table-hover">
     <thead class="thead-dark">
@@ -21,7 +20,7 @@
                     @Html.DisplayFor(modelItem => item.Titulo)
                 </td>
                 <td>
-                    @this.FormatarCpf(item.Descricao)
+                    @Html.DisplayFor(modelItem => item.Descricao)
                 </td>
                 <td class="text-right">
                     <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>

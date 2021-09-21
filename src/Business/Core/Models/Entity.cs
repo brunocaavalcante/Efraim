@@ -5,10 +5,10 @@ namespace Business.Core.Models
 {
     public abstract class Entity
     {
-        [FirestoreProperty] 
+        [FirestoreProperty]
         public string Id { get; set; }
 
         [FirestoreProperty]
-        public DateTime DataCadastro { get => DateTime.Now; }
+        public DateTime DataCadastro { get => DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc); }
     }
 }

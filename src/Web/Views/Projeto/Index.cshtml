@@ -1,5 +1,12 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Web.Models.ProjetoViewModel>
 @{
+    ViewData["Title"] = "Projetos";
 }
+
+<h1 class="text-center"><i>Módulo de Projetos</i></h1>
+
+<p>
+    <a asp-controller="Projeto" asp-action="Create" class="btn btn-outline-info">Adicionar Projeto</a>
+</p>
+
+<partial name="_Listar" />

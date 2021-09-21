@@ -1,5 +1,45 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Web.Models.ProjetoViewModel
+
 @{
+    ViewData["Title"] = "Criar Projeto";
 }
+<h3>Tela de Cadastro de Projetos:</h3>
+
+<form asp-action="Create">
+
+    <vc:Erros></vc:Erros>
+
+    <div class="mb-3 form-group">
+        <label asp-for="Titulo" class="control-label"></label>
+        <input asp-for="Titulo" type="text" class="form-control" id="titulo " aria-describedby="nome">
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3 form-group">
+        <label asp-for="Descricao" class="control-label"></label>
+        <input asp-for="Descricao" type="text" class="form-control" id="Descricao" aria-describedby="Descricao">
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3 form-group">
+        <label asp-for="DataInicio" class="form-label">Data de Inicio:</label>
+        <input asp-for="DataInicio" type="date" class="form-control" id="dtInicio">
+        <span asp-validation-for="DataInicio" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3 form-group">
+        <label asp-for="DataFim" class="form-label">Data de Termino:</label>
+        <input asp-for="DataFim" type="date" class="form-control" id="dtTermino">
+        <span asp-validation-for="DataFim" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3 form-group">
+        <a class="btn btn-info" asp-action="Index">Voltar</a>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

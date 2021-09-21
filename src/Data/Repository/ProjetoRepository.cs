@@ -18,9 +18,9 @@ namespace Data.Repository
             await this.Atualizar(entity, path);
         }
 
-        public Task<Projeto> BuscarPorId(string id)
+        public async Task<Projeto> BuscarPorId(string id)
         {
-            throw new System.NotImplementedException();
+            return await this.ObterPorId(id, path);
         }
 
         public async Task Excluir(Projeto entity)

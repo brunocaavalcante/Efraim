@@ -10,6 +10,7 @@ namespace Web.Configurations
         {
             CreateMap<Membro, MembroViewModel>().ReverseMap();
             CreateMap<Departamento, DepartamentoViewModel>().ReverseMap();
+            CreateMap<Projeto, ProjetoViewModel>().ReverseMap();
         }
     }
 }

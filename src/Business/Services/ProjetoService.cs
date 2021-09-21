@@ -2,6 +2,7 @@
 using Business.Core.Services;
 using Business.Interfaces;
 using Business.Models;
+using Business.Validations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,13 +20,19 @@ namespace Business.Services
 
         public async Task Adicionar(Projeto entity)
         {
-            //TODO: Validação
+            if (!ExecutarValidacao(new ProjetoValidation(), entity)) return;
+
+            entity.DataFim = DateTime.SpecifyKind(entity.DataFim, DateTimeKind.Utc);
+            entity.DataInicio = DateTime.SpecifyKind(entity.DataInicio, DateTimeKind.Utc);
             await repository.Adicionar(entity);
         }
 
         public async Task Atualizar(Projeto entity)
         {
-            //TODO: Validação
+            if (!ExecutarValidacao(new ProjetoValidation(), entity)) return;
+
+            entity.DataFim = DateTime.SpecifyKind(entity.DataFim, DateTimeKind.Utc);
+            entity.DataInicio = DateTime.SpecifyKind(entity.DataInicio, DateTimeKind.Utc);
             await repository.Atualizar(entity);
         }
 

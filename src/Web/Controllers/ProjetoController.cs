@@ -43,6 +43,31 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> Edit(string id)
+        {
+            var projetoViewModel = mapper.Map<ProjetoViewModel>(await service.BuscarPorId(id));
+
+            if (projetoViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(projetoViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProjetoViewModel viewModel)
+        {
+            if (!ModelState.IsValid) return View(viewModel);
+
+            var projeto = mapper.Map<Projeto>(viewModel);
+            await service.Atualizar(projeto);
+
+            if (!OperacaoValida()) return View(viewModel);
+
+            return RedirectToAction("Index");
+        }
+
         public async Task<IActionResult> Details(string id)
         {
             var viewModel = mapper.Map<ProjetoViewModel>(await service.BuscarPorId(id));
@@ -51,6 +76,27 @@ namespace Web.Controllers
             return View(viewModel);
         }
 
+        public async Task<IActionResult> Delete(string id)
+        {
+            var viewModel = mapper.Map<ProjetoViewModel>(await service.BuscarPorId(id));
+            if (viewModel == null) return NotFound();
+
+            return View(viewModel);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            var entity = await service.BuscarPorId(id);
+
+            if (entity == null) return NotFound();
+
+            await service.Excluir(entity);
+
+            if (!OperacaoValida()) return View(entity);
+
+            return RedirectToAction("Index");
+        }
 
     }
 }
