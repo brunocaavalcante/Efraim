@@ -8,9 +8,11 @@ namespace Web.Configurations
     {
         public AutoMapperConfig()
         {
-            CreateMap<Membro, MembroViewModel>().ReverseMap();
+            CreateMap<Usuario, UsuarioViewModel>().ReverseMap();
             CreateMap<Departamento, DepartamentoViewModel>().ReverseMap();
             CreateMap<Projeto, ProjetoViewModel>().ReverseMap();
+            CreateMap<Caixa, CaixaViewModel>().ReverseMap();
+            CreateMap<Permissao, PermissaoViewModel>().ReverseMap();
         }
     }
 }

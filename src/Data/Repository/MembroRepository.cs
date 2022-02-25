@@ -5,36 +5,36 @@ using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class MembroRepository : BaseRepository<Membro>, IMembroRepository
+    public class MembroRepository : BaseRepository<Usuario>, IMembroRepository
     {
-        const string path = "membros";
+        const string path = "users";
     
-        public async Task AdicionarMembro(Membro entity)
+        public async Task AdicionarMembro(Usuario entity)
         {
             await this.Adicionar(entity,path);
         }
 
-        public async Task<List<Membro>> ListarTodos()
+        public async Task<List<Usuario>> ListarTodos()
         {
             return await this.Listar(path);
         }
 
-        public async Task<Membro> BuscarPorId(string Id)
+        public async Task<Usuario> BuscarPorId(string Id)
         {
             return await this.ObterPorId(Id, path);    
         }
 
-        public async Task<Membro> BuscarPorColuna(string nomeColuna, string valor)
+        public async Task<Usuario> BuscarPorColuna(string nomeColuna, string valor)
         {
            return await BuscarPorColuna(path, nomeColuna, valor);
         }
 
-        public async Task ExcluirMembro(Membro entity)
+        public async Task ExcluirMembro(Usuario entity)
         {
             await Remover(entity,path);
         }
 
-        public async Task AtualizarMembro(Membro entity)
+        public async Task AtualizarMembro(Usuario entity)
         {
             await this.Atualizar(entity,path);
         }      

@@ -1,12 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Web.Models
 {
-    public class MembroViewModel : EntityViewModel
+    public class UsuarioViewModel : EntityViewModel
     {
-        public string Id { get; set; }
         
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [StringLength(14, ErrorMessage = "O {0} fornecido é inválido!", MinimumLength = 14)]
@@ -23,9 +23,14 @@ namespace Web.Models
         public DateTime DataCadastro { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public string Telefone { get; set; }      
+        public string Telefone { get; set; } 
+        
+        public string IdProjeto { get; set; }
 
-        public bool Lider { get; set; }
-      
+        public string IdDepartamento { get; set; }
+
+        public IEnumerable<DepartamentoViewModel> Departamentos { get; set; }
+
+        public IEnumerable<ProjetoViewModel> Projetos { get; set; }
     }
 }

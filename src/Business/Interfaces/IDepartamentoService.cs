@@ -11,9 +11,9 @@ namespace Business.Interfaces
         Task Excluir(Departamento entity);
         Task<List<Departamento>> Listar();
         Task<Departamento> BuscarPorId(string id);       
-        Task AdicionarMembro(Departamento entity, Membro membro);
-        Task RemoverMembro(Departamento entity, Membro membro);
-        Task AdicionarLider(Departamento entity, Membro lider);
-        Task RemoverLider(Departamento entity, Membro lider);
+        Task AdicionarMembro(Departamento entity, Usuario membro);
+        Task RemoverMembro(Departamento entity, Usuario membro);
+        Task AdicionarLider(Departamento entity, Usuario lider);
+        Task RemoverLider(Departamento entity, Usuario lider);
     }
 }

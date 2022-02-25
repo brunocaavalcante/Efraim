@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Web.Models.PermissaoViewModel>
+@{
+    ViewData["Title"] = "Permissões";
+}
+
+<h1 class="text-center"><i>Permissões</i></h1>
+
+<p>
+    <a asp-controller="Administracao" asp-action="CreatePermissao" class="btn btn-outline-info">Adicionar Permissão</a>
+</p>
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Perfil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcionalidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Permissoes)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Perfil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funcionalidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Permissoes)
+            </td>
+            <td class="text-right">
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

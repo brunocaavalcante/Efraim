@@ -10,8 +10,8 @@ namespace Business.Models
     {
         public Departamento()
         {
-            Lideres = new List<Membro>();
-            Membros = new List<Membro>();
+            Lideres = new List<Usuario>();
+            Membros = new List<Usuario>();
         }
         [FirestoreProperty] 
         public string Nome{ get; set;}
@@ -20,10 +20,10 @@ namespace Business.Models
         public string Descricao {get;set;}
 
         [FirestoreProperty] 
-        public List<Membro> Membros{ get; set; }
+        public List<Usuario> Membros{ get; set; }
 
         [FirestoreProperty] 
-        public List<Membro> Lideres{ get; set; }
+        public List<Usuario> Lideres{ get; set; }
 
         [FirestoreProperty] 
         public DateTime DataCadastro {get;set;}

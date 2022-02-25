@@ -35,23 +35,7 @@
     </div>    
 </form>
 
-<partial name="Membro/_AdicionarMembro" model="Model"/>
-<partial name="Lider/_AdicionarLider" model="Model" />
 
-<div class="card form-group col-md-6">                 
-    <div class="card-body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#membroAddModal">Adicionar Membros</button><hr>   
-        @if(Model.Membros != null && Model.Membros.Count > 0){ <partial name="Membro/_ListarMembro" model="Model"/> } 
-    </div>
-</div>
-
-<div class="card form-group col-md-6">
-    <div class="card-body">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#liderAddModal">Adicionar Lider</button><hr>
-        @if (Model.Lideres != null && Model.Lideres.Count > 0)
-        {<partial name="Lider/_ListarLider" model="Model" />}
-    </div>
-</div>
 
  <div class="form-group">
     <a class="btn btn-info" asp-action="Index">Voltar</a>

@@ -30,7 +30,7 @@ namespace Web.Controllers
 
         public IActionResult Privacy()
         {
-            membroService.AdicionarMembro(new Business.Models.Membro());
+            membroService.AdicionarMembro(new Business.Models.Usuario());
             return View();
         }
 

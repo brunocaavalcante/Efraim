@@ -14,9 +14,9 @@ namespace Web.Models
         [DisplayName("Descrição")]
         public string Descricao { get; set; }
         
-        public MembroViewModel Responsavel { get; set; }
+        public UsuarioViewModel Responsavel { get; set; }
         
-        public List<MembroViewModel> Participantes { get; set; }
+        public List<UsuarioViewModel> Participantes { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [DisplayName("Data Inícial")]
@@ -28,5 +28,7 @@ namespace Web.Models
 
         [DisplayName("Data de Cadastro")]
         public DateTime DataCadastro { get; set; }
+
+        public CaixaViewModel Caixa { get; set; }
     }
 }

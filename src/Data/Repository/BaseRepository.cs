@@ -9,36 +9,44 @@ namespace Data.Repository
     public abstract class BaseRepository<TEntity> where TEntity : Entity, new()
     {
         protected FirestoreDb Db;
-      
-        private FirestoreDb Conexao()
+
+        protected FirestoreDb Conexao()
         {
             string filepath = "..\\Web\\efraim-key.json";
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
             return FirestoreDb.Create("efraim-65b10");
         }
 
-        public virtual async Task Remover(Entity entity,string path)
+        public virtual async Task Remover(Entity entity, string path)
         {
             Db = Conexao();
             DocumentReference document = Db.Collection(path).Document(entity.Id);
             await document.DeleteAsync();
         }
 
-        protected virtual async Task Adicionar(TEntity entity, string path)
+        protected virtual async Task<string> Adicionar(TEntity entity, string path)
         {
-            this.Db = Conexao();          
-            CollectionReference colRef = Db.Collection(path);  
-            await colRef.AddAsync(entity);            
+            try
+            {
+                this.Db = Conexao();
+                CollectionReference colRef = Db.Collection(path);
+                var result = await colRef.AddAsync(entity);
+                return result.Id;
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
         }
 
-        protected virtual async Task Atualizar(TEntity entity,string path)
+        protected virtual async Task Atualizar(TEntity entity, string path)
         {
-            this.Db = Conexao();           
+            this.Db = Conexao();
             DocumentReference document = Db.Collection(path).Document(entity.Id);
-            await document.SetAsync(entity, SetOptions.Overwrite);          
+            await document.SetAsync(entity, SetOptions.Overwrite);
         }
-        
-        protected virtual async Task<TEntity> ObterPorId(string id,string path)
+
+        protected virtual async Task<TEntity> ObterPorId(string id, string path)
         {
             Db = Conexao();
             DocumentReference docRef = Db.Collection(path).Document(id);
@@ -47,10 +55,10 @@ namespace Data.Repository
 
             if (document.Exists)
             {
-                entity = document.ConvertTo<TEntity>();                
-                entity.Id = document.Id;                               
-            }  
-            return await Task.FromResult(entity);       
+                entity = document.ConvertTo<TEntity>();
+                entity.Id = document.Id;
+            }
+            return await Task.FromResult(entity);
         }
 
         protected virtual async Task<TEntity> BuscarPorColuna(string path, string coluna, string value)
@@ -63,31 +71,31 @@ namespace Data.Repository
 
             foreach (DocumentSnapshot item in document.Documents)
             {
-                entity = item.ConvertTo<TEntity>();                
+                entity = item.ConvertTo<TEntity>();
                 entity.Id = item.Id;
             }
-           
+
             return await Task.FromResult(entity);
         }
-        
+
         protected virtual async Task<List<TEntity>> Listar(string path)
         {
             this.Db = Conexao();
-            var usersRef = Db.Collection(path);         
+            var usersRef = Db.Collection(path);
             var snapshot = await usersRef.GetSnapshotAsync();
             var lista = new List<TEntity>();
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
-                if(document.Exists)
+                if (document.Exists)
                 {
                     TEntity entity = document.ConvertTo<TEntity>();
-                    entity.Id = document.Id;                        
+                    entity.Id = document.Id;
                     lista.Add(entity);
                 }
             }
 
             return await Task.FromResult(lista);
         }
-    }  
+    }
 }

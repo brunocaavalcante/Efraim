@@ -15,10 +15,10 @@ namespace Business.Validations
                 .NotEmpty().WithMessage("O campo {PropertyName} deve ser fornecido.")
                 .NotNull().WithMessage("O campo {PropertyName} deve ser fornecido.");
 
-            RuleForEach<Membro>(m => m.Membros)
+            RuleForEach<Usuario>(m => m.Membros)
                 .SetValidator(new MembroValidation());
 
-             RuleForEach<Membro>(m => m.Lideres)
+             RuleForEach<Usuario>(m => m.Lideres)
                 .SetValidator(new MembroValidation());  
         }
     }

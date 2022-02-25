@@ -10,15 +10,23 @@ namespace Business.Models
     {
         [FirestoreProperty]
         public string Titulo { get; set; }
+
         [FirestoreProperty]
         public string Descricao { get; set; }
-        [FirestoreProperty]
-        public Membro Responsavel { get; set; }
-        [FirestoreProperty]
-        public List<Membro> Participantes { get; set; }
+        
+        public Usuario Responsavel { get; set; }
+                
+        public List<Usuario> Participantes { get; set; }
+
         [FirestoreProperty]
         public DateTime DataInicio { get; set; }
+
         [FirestoreProperty]
         public DateTime DataFim { get; set; }
+
+        [FirestoreProperty]
+        public string IdCaixa { get; set; }
+
+        public Caixa Caixa { get; set; }
     }
 }

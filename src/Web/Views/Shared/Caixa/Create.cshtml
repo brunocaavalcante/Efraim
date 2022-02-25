@@ -1,0 +1,67 @@
+﻿@model Web.Models.CaixaViewModel
+
+   
+<div class="modal fade" id="caixaAddModal">
+    <form asp-action="CreateCaixa">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Criar Caixa:</h3>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <vc:Erros></vc:Erros>
+                    <div class="mb-3 form-group">
+                        <label asp-for="ValorTotal" class="control-label">Valor meta caso haja:</label>
+                        <input asp-for="ValorTotal" type="text" class="form-control" id="titulo " aria-describedby="nome">
+                        <span asp-validation-for="ValorTotal" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3 form-group">
+                        <label asp-for="ValorObtido" class="form-label">Valor Inicial do Caixa:</label>
+                        <input asp-for="ValorObtido" type="text" class="form-control">
+                        <span asp-validation-for="ValorObtido" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Salvar" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+ <div class="modal fade" id="caixaAddModal">
+        <h3>Criar Caixa:</h3>
+
+        <form asp-action="CreateCaixa">
+
+            <vc:Erros></vc:Erros>
+
+            <div class="mb-3 form-group">
+                <label asp-for="ValorTotal" class="control-label"></label>
+                <input asp-for="ValorTotal" type="text" class="form-control" id="titulo " aria-describedby="nome">
+                <span asp-validation-for="ValorTotal" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 form-group">
+                <label asp-for="ValorObtido" class="form-label">Data de Inicio:</label>
+                <input asp-for="ValorObtido" type="date" class="form-control" id="dtInicio">
+                <span asp-validation-for="ValorObtido" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 form-group">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </form>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+

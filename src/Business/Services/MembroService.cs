@@ -19,10 +19,9 @@ namespace Business.Services
             repository = _repository;
         }
         
-        public async Task AdicionarMembro(Membro entity)
+        public async Task AdicionarMembro(Usuario entity)
         {
             //validar entidade
-            entity.DataCadastro = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
             entity.DataNascimento = DateTime.SpecifyKind(entity.DataNascimento,DateTimeKind.Utc);
              
              if (!ExecutarValidacao(new MembroValidation(), entity)) return;         
@@ -30,31 +29,30 @@ namespace Business.Services
             await repository.AdicionarMembro(entity);
         }
 
-        public async Task AtualizarMembro(Membro entity)
+        public async Task AtualizarMembro(Usuario entity)
         {
             entity.DataNascimento = DateTime.SpecifyKind(entity.DataNascimento,DateTimeKind.Utc);
-            entity.DataCadastro = DateTime.SpecifyKind(entity.DataCadastro,DateTimeKind.Utc);
            if (!ExecutarValidacao(new MembroValidation(), entity)) return;  
 
             await repository.AtualizarMembro(entity);
         }
 
-        public async Task<Membro> BuscarPorColuna(string nomeColuna, string valor)
+        public async Task<Usuario> BuscarPorColuna(string nomeColuna, string valor)
         {
             return await repository.BuscarPorColuna(nomeColuna, valor);
         }
 
-        public async Task<Membro> BuscarPorId(string Id)
+        public async Task<Usuario> BuscarPorId(string Id)
         {
             return await repository.BuscarPorId(Id);
         }
 
-        public async Task ExcluirMembro(Membro entity)
+        public async Task ExcluirMembro(Usuario entity)
         {
            await repository.ExcluirMembro(entity);
         }
 
-        public async Task<List<Membro>> ListarTodos()
+        public async Task<List<Usuario>> ListarTodos()
         {
             return await repository.ListarTodos();            
         }

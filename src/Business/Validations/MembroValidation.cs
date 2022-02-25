@@ -5,7 +5,7 @@ using Business.Core.Validations;
 
 namespace Business.Validations
 {
-    public class MembroValidation : BaseValidator<Membro>
+    public class MembroValidation : BaseValidator<Usuario>
     {        
         public MembroValidation()
         {

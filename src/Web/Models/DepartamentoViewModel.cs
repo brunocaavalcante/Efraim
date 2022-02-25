@@ -9,9 +9,9 @@ namespace Web.Models
     {
         public DepartamentoViewModel()
         {
-            Membro = new MembroViewModel();
-            Membros = new List<MembroViewModel>();
-            Lideres = new List<MembroViewModel>();
+            Membro = new UsuarioViewModel();
+            Membros = new List<UsuarioViewModel>();
+            Lideres = new List<UsuarioViewModel>();
         }
         public string Id { get; set; }
         
@@ -22,11 +22,11 @@ namespace Web.Models
         public string Descricao {get;set;}
         
         [ValidateNever]
-        public MembroViewModel Membro{ get; set; }
+        public UsuarioViewModel Membro{ get; set; }
 
-        public List<MembroViewModel> Membros{ get; set; }
+        public List<UsuarioViewModel> Membros{ get; set; }
 
-        public List<MembroViewModel> Lideres { get; set; }
+        public List<UsuarioViewModel> Lideres { get; set; }
 
         public DateTime DataCadastro { get; set; }
     }

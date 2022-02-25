@@ -12,10 +12,14 @@ namespace Business.Services
     public class ProjetoService : BaseService, IProjetoService
     {
         private readonly IProjetoRepository repository;
+        private readonly ICaixaService caixaService;
+
         public ProjetoService(INotificador notificador,
-                              IProjetoRepository projetoRepository) : base(notificador)
+                              IProjetoRepository projetoRepository,
+                              ICaixaService _caixaService) : base(notificador)
         {
             repository = projetoRepository;
+            caixaService = _caixaService;
         }
 
         public async Task Adicionar(Projeto entity)
@@ -38,7 +42,9 @@ namespace Business.Services
 
         public async Task<Projeto> BuscarPorId(string id)
         {
-            return await repository.BuscarPorId(id);
+            var projeto = await repository.BuscarPorId(id);
+            //projeto.Caixa = await caixaService.BuscarPorId(projeto.IdCaixa);
+            return projeto;
         }
 
         public async Task Excluir(Projeto entity)

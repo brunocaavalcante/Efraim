@@ -16,22 +16,22 @@ namespace Web.Controllers
         private readonly IMapper mapper;
         public DepartamentoController(IDepartamentoService _service,
                                       IMembroService _membroService,
-                                      IMapper _mapper, 
+                                      IMapper _mapper,
                                       INotificador notificador) : base(notificador)
         {
             service = _service;
             membroService = _membroService;
-            mapper = _mapper;                     
+            mapper = _mapper;
         }
 
         public async Task<IActionResult> Index()
-        {            
+        {
             var lista = mapper.Map<List<DepartamentoViewModel>>(await service.Listar());
             return View(lista);
         }
 
-        public async Task<IActionResult> Create()
-        {  
+        public IActionResult Create()
+        {
             return View(new DepartamentoViewModel());
         }
 
@@ -39,16 +39,17 @@ namespace Web.Controllers
         public async Task<IActionResult> Create(DepartamentoViewModel viewModel)
         {
             await service.Adicionar(mapper.Map<Departamento>(viewModel));
-            
-            if(!OperacaoValida()) return View(viewModel);
+
+            if (!OperacaoValida()) return View(viewModel);
 
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Details(string id)
         {
-            var departamentoViewModel = mapper.Map<DepartamentoViewModel>(await service.BuscarPorId(id));          
-            if (departamentoViewModel == null) return NotFound();            
+            var departamentoViewModel = mapper.Map<DepartamentoViewModel>(await service.BuscarPorId(id));
+
+            if (departamentoViewModel == null) return NotFound();
 
             return View(departamentoViewModel);
         }
@@ -56,6 +57,7 @@ namespace Web.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var departamentoViewModel = mapper.Map<DepartamentoViewModel>(await service.BuscarPorId(id));
+            departamentoViewModel.Membros.ForEach(x => { x.IdDepartamento = departamentoViewModel.Id; x.Controller = "Departamento"; });
 
             if (departamentoViewModel == null)
             {
@@ -64,17 +66,17 @@ namespace Web.Controllers
 
             return View(departamentoViewModel);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Edit(DepartamentoViewModel departamentoViewModel)
         {
-            if (!ModelState.IsValid) return View(departamentoViewModel); 
+            if (!ModelState.IsValid) return View(departamentoViewModel);
 
             var departamento = mapper.Map<Departamento>(departamentoViewModel);
             departamento.Membros = (await service.BuscarPorId(departamentoViewModel.Id)).Membros;
             departamento.Lideres = (await service.BuscarPorId(departamentoViewModel.Id)).Lideres;
 
-            await service.Atualizar(departamento);         
+            await service.Atualizar(departamento);
 
             if (!OperacaoValida()) return View(departamentoViewModel);
 
@@ -109,24 +111,22 @@ namespace Web.Controllers
         {
             ModelState.Remove("Nome");
             var departamento = await service.BuscarPorId(departamentoViewModel.Id);
-            var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF.Replace("-","").Replace(".",""));            
-            
+            var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF.Replace("-", "").Replace(".", ""));
+
             await service.AdicionarMembro(departamento, membro);
-            if(!OperacaoValida()) return View("Edit", mapper.Map<DepartamentoViewModel>(departamento));
+            if (!OperacaoValida()) return View("Edit", mapper.Map<DepartamentoViewModel>(departamento));
 
-            return RedirectToAction("Edit", new { id = departamento.Id } );
+            return RedirectToAction("Details", new { id = departamento.Id });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RemoverMembro(DepartamentoViewModel departamentoViewModel)
+        public async Task<IActionResult> RemoverMembro(string idDepartamento, string idMembro)
         {
-            var departamento = await service.BuscarPorId(departamentoViewModel.Id);
-            var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF.Replace("-","").Replace(".",""));
-            
-            await service.RemoverMembro(departamento, membro);
-            return RedirectToAction("Edit", new { id = departamento.Id } );
-        }
+            var departamento = await service.BuscarPorId(idDepartamento);
+            var membro = await membroService.BuscarPorId(idMembro);
 
+            await service.RemoverMembro(departamento, membro);
+            return RedirectToAction("Details", new { id = departamento.Id });
+        }
         #endregion
 
         #region Lider
@@ -139,19 +139,18 @@ namespace Web.Controllers
             var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF.Replace("-", "").Replace(".", ""));
 
             await service.AdicionarLider(departamento, membro);
-            if (!OperacaoValida()) return View("Edit", mapper.Map<DepartamentoViewModel>(departamento));
+            if (!OperacaoValida()) return View("Details", mapper.Map<DepartamentoViewModel>(departamento));
 
-            return RedirectToAction("Edit", new { id = departamento.Id });
+            return RedirectToAction("Details", new { id = departamento.Id });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RemoverLider(DepartamentoViewModel departamentoViewModel)
+        public async Task<IActionResult> RemoverLider(string idDepartamento, string idMembro)
         {
-            var departamento = await service.BuscarPorId(departamentoViewModel.Id);
-            var membro = await membroService.BuscarPorColuna("CPF", departamentoViewModel.Membro.CPF.Replace("-", "").Replace(".", ""));
+            var departamento = await service.BuscarPorId(idDepartamento);
+            var membro = await membroService.BuscarPorId(idMembro);
 
             await service.RemoverLider(departamento, membro);
-            return RedirectToAction("Edit", new { id = departamento.Id });
+            return RedirectToAction("Details", new { id = departamento.Id });
         }
         #endregion
     }

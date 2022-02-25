@@ -27,7 +27,7 @@ namespace Business.Services
             await repository.Adicionar(entity);
         }
 
-        public async Task AdicionarMembro(Departamento entity, Membro membro)
+        public async Task AdicionarMembro(Departamento entity, Usuario membro)
         {
             bool membroJaExiste = entity.Membros.Where(m => m.CPF == membro.CPF).Any();
 
@@ -60,7 +60,7 @@ namespace Business.Services
             return await repository.Listar();
         }
 
-        public async Task RemoverMembro(Departamento entity, Membro membro)
+        public async Task RemoverMembro(Departamento entity, Usuario membro)
         {
             membro = entity.Membros.Where(m => m.CPF == membro.CPF).FirstOrDefault();
             entity.Membros.Remove(membro);
@@ -72,8 +72,10 @@ namespace Business.Services
             return await repository.BuscarPorId(id);
         }
 
-        public async Task AdicionarLider(Departamento entity, Membro lider)
-        {
+        public async Task AdicionarLider(Departamento entity, Usuario lider)
+        {           
+            if (!ExecutarValidacao(new MembroValidation(), lider)) return;
+
             bool liderJaExiste = entity.Lideres.Where(m => m.CPF == lider.CPF).Any();
             bool isMembro = entity.Membros.Where(m => m.CPF == lider.CPF).Any();
 
@@ -85,7 +87,7 @@ namespace Business.Services
             await Atualizar(entity);
         }
 
-        public async Task RemoverLider(Departamento entity, Membro lider)
+        public async Task RemoverLider(Departamento entity, Usuario lider)
         {
             lider = entity.Lideres.Where(m => m.CPF == lider.CPF).FirstOrDefault();
             entity.Lideres.Remove(lider);

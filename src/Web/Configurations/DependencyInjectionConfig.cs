@@ -18,6 +18,10 @@ namespace Web.Configurations
             services.AddScoped<IDepartamentoRepository, DepartamentoRepository>();
             services.AddScoped<IProjetoService, ProjetoService>();
             services.AddScoped<IProjetoRepository, ProjetoRepository>();
+            services.AddScoped<ICaixaService, CaixaService>();
+            services.AddScoped<ICaixaRepository, CaixaRepository>();
+            services.AddScoped<IPermissaoService, PermissaoService>();
+            services.AddScoped<IPermissaoRepository, PermissaoRepository>();
 
             return services;
         }

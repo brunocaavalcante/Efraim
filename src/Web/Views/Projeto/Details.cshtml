@@ -5,45 +5,91 @@
     ViewData["Title"] = "Detalhes";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-info-list" data-toggle="list" href="#list-info" role="tab" aria-controls="info">Detalhes</a>
+            <a class="list-group-item list-group-item-action" id="list-membros-list" data-toggle="list" href="#list-membros" role="tab" aria-controls="membros">Participantes</a>
+            <a class="list-group-item list-group-item-action" id="list-caixa-list" data-toggle="list" href="#list-caixa" role="tab" aria-controls="caixa">Caixa</a>
+            <a class="list-group-item list-group-item-action" id="list-administradores-list" data-toggle="list" href="#list-administradores" role="tab" aria-controls="administradores">Administradores</a>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="tab-content" id="nav-tabContent">
 
-<div>
-    <h4>Informação somente leitura</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataInicio)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataInicio)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataFim)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataFim)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataCadastro)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataCadastro)
-        </dd>
-    </dl>
+            <div class="tab-pane fade show active" id="list-info" role="tabpanel" aria-labelledby="list-info-list">
+                <div>
+                    <dl class="row">
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Titulo)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Titulo)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Descricao)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Descricao)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.DataInicio)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.DataInicio)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.DataFim)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.DataFim)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.DataCadastro)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.DataCadastro)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="list-membros" role="tabpanel" aria-labelledby="list-membros-list">
+                <div>
+                    <partial name="../Membro/_Listar" model="Model.Participantes" />
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="list-caixa" role="tabpanel" aria-labelledby="list-caixa-list">
+                @if (Model.Caixa != null)
+                {
+                    <div>
+                        <partial name="Caixa/_Caixa" model="Model" />
+                    </div>
+                }
+                else
+                {
+                    <partial name="Caixa/Create" model="Model.Caixa" />
+                    <div>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#caixaAddModal">Criar Caixa</button><hr>
+                    </div>
+                }
+            </div>
+
+            <div class="tab-pane fade" id="list-administradores" role="tabpanel" aria-labelledby="list-administradores-list">
+
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
-    <a class="btn btn-info" asp-action="Index">Voltar</a>
-</div>
+
+
+@section Scripts {
+    <script>
+        $('#myList a').on('click', function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        });
+    </script>
+}
+

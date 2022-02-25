@@ -1,63 +1,137 @@
 @model Web.Models.DepartamentoViewModel
+@using Web.Extensions
 
 @{
     ViewData["Title"] = "Detalhes";
 }
 
-<h1>@ViewData["Title"]</h1>
+<vc:Erros></vc:Erros>
 
-<div>
-    <h4>Informação somente leitura</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Descricao)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Descricao)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DataCadastro)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DataCadastro)
-        </dd>
-    </dl>
-    <h4>Líderes</h4>
-    <dl class="row">
-        @foreach (var item in Model.Lideres)
-        {
-            <dt class="col-sm-2">
-                Nome:
-            </dt>
-            <dd class="col-sm-10">
-                @item.Nome
-            </dd>
-        }
-    </dl>
+<div class="row">
+    <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-info-list" data-toggle="list" href="#list-info" role="tab" aria-controls="info">Detalhes</a>
+            <a class="list-group-item list-group-item-action" id="list-membros-list" data-toggle="list" href="#list-membros" role="tab" aria-controls="membros">Participantes</a>
+            <a class="list-group-item list-group-item-action" id="list-administradores-list" data-toggle="list" href="#list-administradores" role="tab" aria-controls="administradores">Líderes</a>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="tab-content" id="nav-tabContent">
 
-    <h4>Membros</h4>
-    <dl class="row">
-        @foreach (var item in Model.Membros)
-        {
-            <dt class="col-sm-2">
-                Nome:
-            </dt>
-            <dd class="col-sm-10">
-                @item.Nome
-            </dd>
-        }
-    </dl>
+            <div class="tab-pane fade show active" id="list-info" role="tabpanel" aria-labelledby="list-info-list">
+                <div>
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Nome)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Nome)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.Descricao)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.Descricao)
+                        </dd>
+                        <dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.DataCadastro)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.DataCadastro)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="list-membros" role="tabpanel" aria-labelledby="list-membros-list">
+                <partial name="Membro/_AdicionarMembro" model="Model" />
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#membroAddModal">Adicionar Membro</button><hr>
+                @if (Model.Membros == null || Model.Membros.Count == 0)
+                {
+                    <p>Nenhum membro cadastrado.</p>
+                }
+                else
+                {
+                    <div>
+                        <table class="table table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Membros[0].Nome)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Membros[0].CPF)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Membros)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Nome)
+                                        </td>
+                                        <td>
+                                            @this.FormatarCpf(item.CPF)
+                                        </td>
+                                        <td class="text-right">
+                                            <a class="btn btn-info" asp-action="Details" asp-controller="Membro" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
+                                            <a asp-controller="Departamento" asp-action="RemoverMembro" asp-route-idDepartamento="@Model.Id" asp-route-idMembro="@item.Id" class="btn btn-danger">Remover</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+
+            <div class="tab-pane fade" id="list-administradores" role="tabpanel" aria-labelledby="list-administradores-list">
+                <partial name="Lider/_AdicionarLider" model="Model" />
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#liderAddModal">Adicionar Lider</button><hr>
+                @if (Model.Lideres == null || Model.Lideres.Count == 0)
+                {
+                    <p>Nenhum lider cadastrado.</p>
+                }
+                else
+                {
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Membros[0].Nome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Membros[0].CPF)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Lideres)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nome)
+                                    </td>
+                                    <td>
+                                        @this.FormatarCpf(item.CPF)
+                                    </td>
+                                    <td class="text-right">
+                                        <a class="btn btn-info" asp-action="Details" asp-controller="Membro" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
+                                        <a asp-controller="Departamento" asp-action="RemoverLider" asp-route-idDepartamento="@Model.Id" asp-route-idMembro="@item.Id" class="btn btn-danger">Remover</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
 </div>
 
-<!--region botoes--->
-<div>
-    <a class="btn btn-dark" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
-    <a class="btn btn-info" asp-action="Index">Voltar</a>
-</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

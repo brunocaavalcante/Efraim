@@ -24,14 +24,14 @@ namespace Web.Controllers
 
         public async Task<IActionResult> Index()
         {         
-            var lista =  mapper.Map<List<MembroViewModel>>(await service.ListarTodos());
-            ViewBag.ExibirAcoes = true;
+            var lista =  mapper.Map<List<UsuarioViewModel>>(await service.ListarTodos());
+            lista.ForEach(x => x.Controller = "Membro");
             return View(lista);
         }
     
         public async Task<IActionResult> Details(string id)
         {
-            var membroViewModel = mapper.Map<MembroViewModel>(await service.BuscarPorId(id));
+            var membroViewModel = mapper.Map<UsuarioViewModel>(await service.BuscarPorId(id));
 
             if (membroViewModel == null) return NotFound();            
 
@@ -40,13 +40,13 @@ namespace Web.Controllers
 
         public IActionResult CreateMembro()
         {
-            return View(new MembroViewModel());
+            return View(new UsuarioViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateMembro(MembroViewModel model)
+        public async Task<IActionResult> CreateMembro(UsuarioViewModel model)
         {         
-            await service.AdicionarMembro(mapper.Map<Membro>(model));
+            await service.AdicionarMembro(mapper.Map<Usuario>(model));
 
             if (!OperacaoValida()) return View(model);
 
@@ -55,7 +55,7 @@ namespace Web.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
-            var membroViewModel = mapper.Map<MembroViewModel>(await service.BuscarPorId(id));
+            var membroViewModel = mapper.Map<UsuarioViewModel>(await service.BuscarPorId(id));
 
             if (membroViewModel == null)
             {
@@ -66,11 +66,11 @@ namespace Web.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> Edit(MembroViewModel membroViewModel)
+        public async Task<IActionResult> Edit(UsuarioViewModel membroViewModel)
         {
             if (!ModelState.IsValid) return View(membroViewModel); 
 
-            var membro = mapper.Map<Membro>(membroViewModel);
+            var membro = mapper.Map<Usuario>(membroViewModel);
             await service.AtualizarMembro(membro);         
 
             if (!OperacaoValida()) return View(membroViewModel);
@@ -80,7 +80,7 @@ namespace Web.Controllers
    
         public async Task<IActionResult> Delete(string id)
         {
-            var membroViewModel = mapper.Map<MembroViewModel>(await service.BuscarPorId(id));
+            var membroViewModel = mapper.Map<UsuarioViewModel>(await service.BuscarPorId(id));
             if (membroViewModel == null) return NotFound();
 
             return View(membroViewModel);

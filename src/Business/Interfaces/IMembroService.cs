@@ -7,11 +7,11 @@ namespace Business.Interfaces
 {
     public interface IMembroService
     {
-        Task AdicionarMembro(Membro entity);
-        Task ExcluirMembro(Membro entity);
-        Task AtualizarMembro(Membro entity);
-        Task<List<Membro>> ListarTodos();
-        Task<Membro> BuscarPorId(string Id);
-        Task<Membro> BuscarPorColuna(string nomeColuna, string valor);
+        Task AdicionarMembro(Usuario entity);
+        Task ExcluirMembro(Usuario entity);
+        Task AtualizarMembro(Usuario entity);
+        Task<List<Usuario>> ListarTodos();
+        Task<Usuario> BuscarPorId(string Id);
+        Task<Usuario> BuscarPorColuna(string nomeColuna, string valor);
     }
 }
