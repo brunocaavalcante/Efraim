@@ -24,15 +24,15 @@
                     @item.Telefone
                 </td>
                 <td class="text-right">
-                    @if (this.ExibirAcoesListaMembro("Details", item.Controller))
+                    @if (this.VerificaPermissao(item,"Details", item.Controller))
                     {
                         <a class="btn btn-info" asp-action="Details" asp-controller="Membro" asp-route-id="@item.Id"><spam class="fa fa-search"></spam></a>
                     }
-                    @if (this.ExibirAcoesListaMembro("Edit", item.Controller))
+                    @if (this.VerificaPermissao(item,"Edit", item.Controller))
                     {
                         <a class="btn btn-warning" asp-action="Edit" asp-controller="Membro" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
                     }
-                    @if (this.ExibirAcoesListaMembro("Delete", item.Controller))
+                    @if (this.VerificaPermissao(item,"Delete", item.Controller))
                     {
                         <a class="btn btn-danger" asp-action="Delete" asp-controller="Membro" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
                     }

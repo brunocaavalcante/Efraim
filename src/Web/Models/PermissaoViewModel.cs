@@ -7,14 +7,14 @@ namespace Web.Models
     {
         public string IdUser { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Perfil { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Funcionalidade { get; set; }
-
-        [Required]
+       
         [DisplayName("Permissões")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Permissoes { get; set; }
     }
 }

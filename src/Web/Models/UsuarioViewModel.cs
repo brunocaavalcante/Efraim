@@ -32,5 +32,8 @@ namespace Web.Models
         public IEnumerable<DepartamentoViewModel> Departamentos { get; set; }
 
         public IEnumerable<ProjetoViewModel> Projetos { get; set; }
+
+        public PermissaoViewModel Permissao { get; set; }
+        public List<PermissaoViewModel> Permissoes { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Web.Models;
 
 namespace Web.Extensions
 {
@@ -10,19 +12,14 @@ namespace Web.Extensions
             return Convert.ToUInt64(cpf).ToString(@"000\.000\.000\-00");
         }
 
-        public static bool ExibirAcoesListaMembro(this RazorPage page, string action, string controller)
+        public static bool VerificaPermissao(this RazorPage page, UsuarioViewModel user, string funcionalidade, string permissao)
         {
-            var actions = string.Empty;
-            return true;
+            foreach (var item in user.Permissoes.Where(p => p.Funcionalidade.Equals(funcionalidade)))
+            {
+                if (item.Permissoes.Contains(permissao)) return true;
+            }
 
-            if (controller.Contains("Membro")) actions = "Edit;Details;Delete";
-
-            if (controller.Contains("Departamento") && action == "Membro") actions = "Details;RemoveMembro;";
-
-            if (controller.Contains("Departamento") && action == "Lider") actions = "Details;RemoveLider;";
-
-            bool permitir = actions.Contains(action);
-            return permitir;
+            return false;
         }
     }
 }

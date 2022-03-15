@@ -4,18 +4,36 @@
     }
 
     <h1 class="text-center"><i>Administração</i></h1>
+    <style>
+        .icon-fa {
+            color: steelblue;
+            width: inherit;
+        }
+        .icon-fa:hover span{
+            color: white;
+        }
+    </style>
 
     <div class="container">
         <div class="row">
-            <div class="col">                
-                <a asp-controller="Administracao" asp-action="Permissoes" class="btn btn-outline-info">
-                    <spam class="fa fa-chalkboard-teacher fa-7x" style="color:steelblue;"></spam>
-                    <br /><h5 class="card-title">Permissões de Usuários</h5>
-                </a>                       
+            <div class="col">
+                <a asp-controller="Administracao" asp-action="Permissoes" class="btn btn-outline-info icon-fa">
+                    <spam class="fa fa-chalkboard-teacher fa-7x "></spam>
+                    <br /><h5 class="card-title">Permissões X Perfil</h5>
+                </a>
             </div>
             <div class="col">
-               
+                <a asp-controller="Administracao" asp-action="Permissoes" class="btn btn-outline-info icon-fa">
+                    <spam class="fa fa-user-friends fa-7x"></spam>
+                    <br /><h5 class="card-title">Permissões X Usuário</h5>
+                </a>
             </div>
-            
+
+            <div class="col">
+                <a asp-controller="Administracao" asp-action="Permissoes" class="btn btn-outline-info icon-fa">
+                    <spam class="fa fa-chalkboard-teacher fa-7x "></spam>
+                    <br /><h5 class="card-title">Permissões X Usuário</h5>
+                </a>
+            </div>
         </div>
     </div>

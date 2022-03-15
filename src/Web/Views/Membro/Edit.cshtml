@@ -1,3 +1,4 @@
+@using Web.Extensions
 @model Web.Models.UsuarioViewModel
 
 @{
@@ -36,7 +37,12 @@
             <label asp-for="Telefone"></label>
             <input asp-for="Telefone" class="form-control" id="telefone" />
             <span asp-validation-for="Telefone" class="text-danger"></span>
-        </div>       
+
+            @if (this.VerificaPermissao(Model,"Usuario","CreatePermissao"))
+            {
+                <label>Funcionou!!!!!</label>
+            }
+        </div>
     </div>
 
     <div class="form-group">
