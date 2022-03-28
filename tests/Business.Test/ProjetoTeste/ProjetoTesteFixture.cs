@@ -1,7 +1,9 @@
 ﻿using System;
 using Business.Models;
+using Business.Services;
 using Business.Validations;
 using FluentValidation.Results;
+using Moq.AutoMock;
 using Xunit;
 
 namespace Business.Test.ProjetoTeste
@@ -12,6 +14,16 @@ namespace Business.Test.ProjetoTeste
 
     public class ProjetoTesteFixture : IDisposable
     {
+        public ProjetoService _projetoService;
+        public AutoMocker Mocker;
+
+        public ProjetoService ObterProjetoService()
+        {
+             Mocker = new AutoMocker();
+            _projetoService = Mocker.CreateInstance<ProjetoService>();
+            return _projetoService;
+        }
+
         public FluentValidation.Results.ValidationResult ValidationResult { get; private set; }
 
         public Projeto GerarProjetoValido()
