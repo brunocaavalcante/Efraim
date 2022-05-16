@@ -1,28 +1,28 @@
-using System;
-using Google.Cloud.Firestore; 
 using Business.Core.Models;
+using Google.Cloud.Firestore;
+using System;
 using System.Collections.Generic;
 
 namespace Business.Models
 {
-    [FirestoreData] 
-    public class Usuario:Entity
+    [FirestoreData]
+    public class Usuario : Entity
     {
-        [FirestoreProperty] 
+        [FirestoreProperty]
         public string CPF { get; set; }
 
-        [FirestoreProperty("nome")] 
+        [FirestoreProperty("nome")]
         public string Nome { get; set; }
 
-        [FirestoreProperty("dataNascimento")] 
+        [FirestoreProperty("dataNascimento")]
         public DateTime DataNascimento { get; set; }
-        
-        [FirestoreProperty("telefone")] 
+
+        [FirestoreProperty("telefone")]
         public string Telefone { get; set; }
 
         [FirestoreProperty("email")]
         public string Email { get; set; }
 
-        public List<Permissao> Permissoes { get; set; }
+        public List<Perfil> ListaPerfil { get; set; }
     }
 }

@@ -1,19 +1,19 @@
-﻿@model IEnumerable<Web.Models.PermissaoViewModel>
+﻿@model IEnumerable<Web.Models.PerfilViewModel>
 @{
-    ViewData["Title"] = "Permissões";
+    ViewData["Title"] = "Lista de Perfil";
 }
 
-<h1 class="text-center"><i>Permissões</i></h1>
+<h1 class="text-center"><i>Perfils</i></h1>
 
 <p>
-    <a asp-controller="Administracao" asp-action="CreatePermissao" class="btn btn-outline-info">Adicionar Permissão</a>
+    <a asp-controller="Administracao" asp-action="CreatePerfil" class="btn btn-outline-info">Adicionar Perfil</a>
 </p>
 
 <table class="table table-hover">
     <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Perfil)
+                @Html.DisplayNameFor(model => model.Descricao)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Funcionalidade)
@@ -29,7 +29,7 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Perfil)
+                @Html.DisplayFor(modelItem => item.Descricao)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Funcionalidade)
@@ -38,8 +38,8 @@
                 @Html.DisplayFor(modelItem => item.Permissoes)
             </td>
             <td class="text-right">
-                <a class="btn btn-warning" asp-action="EditPermissao" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
+                <a class="btn btn-warning" asp-action="EditPerfil" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam></a>
+                <a class="btn btn-danger" asp-action="DeletePerfil" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam></a>
             </td>
         </tr>
         }

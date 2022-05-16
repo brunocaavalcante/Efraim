@@ -12,7 +12,7 @@ namespace Web.Configurations
             CreateMap<Departamento, DepartamentoViewModel>().ReverseMap();
             CreateMap<Projeto, ProjetoViewModel>().ReverseMap();
             CreateMap<Caixa, CaixaViewModel>().ReverseMap();
-            CreateMap<Permissao, PermissaoViewModel>().ReverseMap();
+            CreateMap<Perfil, PerfilViewModel>().ReverseMap();
         }
     }
 }

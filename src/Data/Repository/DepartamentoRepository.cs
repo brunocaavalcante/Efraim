@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Business.Interfaces;
 using Business.Models;
-using Google.Cloud.Firestore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Data.Repository
 {
@@ -13,7 +11,7 @@ namespace Data.Repository
 
         public async Task Adicionar(Departamento entity)
         {
-            await this.Adicionar(entity,path);
+            await this.Adicionar(entity, path);
         }
 
         public async Task Atualizar(Departamento entity)
@@ -33,7 +31,7 @@ namespace Data.Repository
 
         public async Task<List<Departamento>> Listar()
         {
-            return await this.Listar(path);            
+            return await this.Listar(path);
         }
     }
 }

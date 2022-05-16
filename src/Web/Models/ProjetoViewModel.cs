@@ -10,12 +10,12 @@ namespace Web.Models
         [DisplayName("Título")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Titulo { get; set; }
-        
+
         [DisplayName("Descrição")]
         public string Descricao { get; set; }
-        
+
         public UsuarioViewModel Responsavel { get; set; }
-        
+
         public List<UsuarioViewModel> Participantes { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]

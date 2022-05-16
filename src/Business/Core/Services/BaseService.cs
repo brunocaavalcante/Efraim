@@ -1,6 +1,6 @@
-﻿using Business.Core.Models;
+﻿using Business.Core.Intefaces;
+using Business.Core.Models;
 using Business.Core.Notificacoes;
-using Business.Core.Intefaces;
 using FluentValidation;
 using FluentValidation.Results;
 
@@ -32,7 +32,7 @@ namespace Business.Core.Services
         {
             var validator = validacao.Validate(entidade);
 
-            if(validator.IsValid) return true;
+            if (validator.IsValid) return true;
 
             Notificar(validator);
 

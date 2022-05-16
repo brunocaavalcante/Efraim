@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Business.Core.Notificacoes;
+using System.Collections.Generic;
 
 namespace Business.Core.Intefaces
 {

@@ -7,12 +7,12 @@ namespace Business.Core.Validations
     {
         public BaseValidator()
         {
-            
+
         }
 
-        protected override bool PreValidate(ValidationContext<T> context, ValidationResult result) 
+        protected override bool PreValidate(ValidationContext<T> context, ValidationResult result)
         {
-            if (context.InstanceToValidate == null) 
+            if (context.InstanceToValidate == null)
             {
                 result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
                 return false;

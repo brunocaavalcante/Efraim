@@ -9,17 +9,17 @@ namespace Business.Validations
         {
             RuleFor(m => m.DataCadastro)
                 .NotEmpty().WithMessage("O campo {PropertyName} deve ser fornecido.")
-                .NotNull().WithMessage("O campo {PropertyName} deve ser fornecido."); 
+                .NotNull().WithMessage("O campo {PropertyName} deve ser fornecido.");
 
             RuleFor(m => m.Nome)
                 .NotEmpty().WithMessage("O campo {PropertyName} deve ser fornecido.")
                 .NotNull().WithMessage("O campo {PropertyName} deve ser fornecido.");
 
             RuleForEach<Usuario>(m => m.Membros)
-                .SetValidator(new MembroValidation());
+                .SetValidator(new UserValidation());
 
-             RuleForEach<Usuario>(m => m.Lideres)
-                .SetValidator(new MembroValidation());  
+            RuleForEach<Usuario>(m => m.Lideres)
+               .SetValidator(new UserValidation());
         }
     }
 }

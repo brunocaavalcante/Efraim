@@ -13,9 +13,9 @@ namespace Business.Models
 
         [FirestoreProperty]
         public string Descricao { get; set; }
-        
+
         public Usuario Responsavel { get; set; }
-                
+
         public List<Usuario> Participantes { get; set; }
 
         [FirestoreProperty]

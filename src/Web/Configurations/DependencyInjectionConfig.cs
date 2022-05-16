@@ -1,18 +1,18 @@
-using Microsoft.Extensions.DependencyInjection;
-using Business.Interfaces;
-using Business.Services;
 using Business.Core.Intefaces;
 using Business.Core.Notificacoes;
+using Business.Interfaces;
+using Business.Services;
 using Data.Repository;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Web.Configurations
 {
     public static class DependencyInjectionConfig
-    {     
+    {
         public static IServiceCollection ResolverDependencias(this IServiceCollection services)
         {
-            services.AddScoped<IMembroService, MembroService>();
-            services.AddScoped<IMembroRepository, MembroRepository>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IDepartamentoService, DepartamentoService>();
             services.AddScoped<IDepartamentoRepository, DepartamentoRepository>();
@@ -22,6 +22,8 @@ namespace Web.Configurations
             services.AddScoped<ICaixaRepository, CaixaRepository>();
             services.AddScoped<IPermissaoService, PermissaoService>();
             services.AddScoped<IPermissaoRepository, PermissaoRepository>();
+            services.AddScoped<IPerfilService, PerfilService>();
+            services.AddScoped<IPerfilRepository, PerfilRepository>();
 
             return services;
         }

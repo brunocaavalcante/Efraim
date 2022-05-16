@@ -1,7 +1,7 @@
 
-using System.Threading.Tasks;
 using Business.Core.Intefaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Web.Extensions
 {
@@ -15,13 +15,13 @@ namespace Web.Extensions
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var notificacoes = await Task.FromResult( _notificador.ObterNotificacoes());
-            
-            foreach(var notificacao in notificacoes)
+            var notificacoes = await Task.FromResult(_notificador.ObterNotificacoes());
+
+            foreach (var notificacao in notificacoes)
             {
                 ViewData.ModelState.AddModelError("", notificacao.Mensagem);
             }
-            
+
             return View();
         }
     }

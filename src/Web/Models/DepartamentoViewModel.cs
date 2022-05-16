@@ -1,7 +1,7 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Web.Models
 {
@@ -14,17 +14,17 @@ namespace Web.Models
             Lideres = new List<UsuarioViewModel>();
         }
         public string Id { get; set; }
-        
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public string Nome{ get; set;}
-        
-        [Display(Name = "Descrição")]
-        public string Descricao {get;set;}
-        
-        [ValidateNever]
-        public UsuarioViewModel Membro{ get; set; }
 
-        public List<UsuarioViewModel> Membros{ get; set; }
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public string Nome { get; set; }
+
+        [Display(Name = "Descrição")]
+        public string Descricao { get; set; }
+
+        [ValidateNever]
+        public UsuarioViewModel Membro { get; set; }
+
+        public List<UsuarioViewModel> Membros { get; set; }
 
         public List<UsuarioViewModel> Lideres { get; set; }
 

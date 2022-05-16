@@ -4,35 +4,25 @@ using FluentValidation;
 
 namespace Business.Validations
 {
-    public class ProjetoValidation : BaseValidator<Projeto>
+    public class PermissaoValidation : BaseValidator<Perfil>
     {
-        public ProjetoValidation()
+        public PermissaoValidation()
         {
-            When(x => x == null, () =>
-            {
-                RuleFor(m => m == null).NotNull().WithMessage("Entidade não pode ser nula");
-            });
-
             RuleFor(m => m.DataCadastro)
+               .NotEmpty().WithMessage("O campo {PropertyName} deve ser fornecido.")
+               .NotNull().WithMessage("O campo {PropertyName} deve ser fornecido.");
+
+            RuleFor(m => m.Funcionalidade)
                 .NotEmpty().WithMessage("O campo {PropertyName} deve ser fornecido.")
                 .NotNull().WithMessage("O campo {PropertyName} deve ser fornecido.");
 
-            RuleFor(m => m.DataInicio)
+            RuleFor(m => m.Descricao)
                 .NotEmpty().WithMessage("O campo {PropertyName} deve ser fornecido.")
                 .NotNull().WithMessage("O campo {PropertyName} deve ser fornecido.");
 
-            RuleFor(m => m.DataFim)
+            RuleFor(m => m.Permissoes)
                 .NotEmpty().WithMessage("O campo {PropertyName} deve ser fornecido.")
                 .NotNull().WithMessage("O campo {PropertyName} deve ser fornecido.");
-
-            RuleFor(m => m.Titulo)
-                .NotEmpty().WithMessage("O campo {PropertyName} deve ser fornecido.")
-                .NotNull().WithMessage("O campo {PropertyName} deve ser fornecido.");
-
-            RuleFor(m => m.Responsavel)
-                .NotNull().WithMessage("Erro por favor informar o Responsavel do projeto.");
-
-
         }
     }
 }

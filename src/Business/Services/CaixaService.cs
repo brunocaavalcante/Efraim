@@ -2,9 +2,7 @@
 using Business.Core.Services;
 using Business.Interfaces;
 using Business.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Business.Services
@@ -34,7 +32,7 @@ namespace Business.Services
 
         public async Task Excluir(Caixa entity)
         {
-            await repository.Excluir(entity); 
+            await repository.Excluir(entity);
         }
 
         public async Task<IEnumerable<Caixa>> Listar()

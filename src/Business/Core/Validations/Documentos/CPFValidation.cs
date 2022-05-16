@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using Business.Core.Util;
+using System.Linq;
 
 namespace Business.Core.Validations.Documentos
 {
@@ -9,8 +8,8 @@ namespace Business.Core.Validations.Documentos
         public const int TamanhoCpf = 11;
         public static bool Validar(string cpf)
         {
-            if(string.IsNullOrEmpty(cpf)) return false;
-            
+            if (string.IsNullOrEmpty(cpf)) return false;
+
             var cpfNumeros = Utils.ApenasNumeros(cpf);
 
             if (!TamanhoValido(cpfNumeros)) return false;

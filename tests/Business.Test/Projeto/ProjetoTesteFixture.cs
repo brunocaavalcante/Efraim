@@ -1,9 +1,9 @@
-﻿using System;
-using Business.Models;
+﻿using Business.Models;
 using Business.Services;
 using Business.Validations;
 using FluentValidation.Results;
 using Moq.AutoMock;
+using System;
 using Xunit;
 
 namespace Business.Test.ProjetoTeste
@@ -19,7 +19,7 @@ namespace Business.Test.ProjetoTeste
 
         public ProjetoService ObterProjetoService()
         {
-             Mocker = new AutoMocker();
+            Mocker = new AutoMocker();
             _projetoService = Mocker.CreateInstance<ProjetoService>();
             return _projetoService;
         }
@@ -35,7 +35,7 @@ namespace Business.Test.ProjetoTeste
                 DataInicio = DateTime.Now,
                 Descricao = "Teste Valido",
                 Titulo = "Testando",
-                Responsavel = new Usuario { Nome = "Bruno", CPF = "111.777.666-99", Email = "teste@gmail.com" }
+                Responsavel =  new Usuario { Nome = "Bruno", CPF = "111.777.666-99", Email = "teste@gmail.com" }
             };
 
             return projeto;

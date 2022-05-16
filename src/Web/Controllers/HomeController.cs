@@ -1,23 +1,18 @@
 ﻿using Business.Interfaces;
-using Web.Models;
-using Google.Cloud.Firestore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using Web.Models;
 
 namespace Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IMembroService membroService;
+        private readonly IUsuarioService membroService;
 
         public HomeController(ILogger<HomeController> logger,
-                                IMembroService _membroService)
+                                IUsuarioService _membroService)
         {
             _logger = logger;
             membroService = _membroService;
@@ -30,7 +25,7 @@ namespace Web.Controllers
 
         public IActionResult Privacy()
         {
-            membroService.AdicionarMembro(new Business.Models.Usuario());
+            membroService.AdicionarUsuario(new Business.Models.Usuario());
             return View();
         }
 

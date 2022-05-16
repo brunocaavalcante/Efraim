@@ -12,7 +12,7 @@ namespace Business.Test.ProjetoTeste
     {
         private readonly ProjetoTesteFixture _projetoTestsFixture;
         private readonly IProjetoService _projetoService;
-        private readonly ITestOutputHelper _output; 
+        private readonly ITestOutputHelper _output;
 
         public ProjetoTeste(ProjetoTesteFixture projetoTestsFixture, ITestOutputHelper outputHelper)
         {
@@ -26,7 +26,7 @@ namespace Business.Test.ProjetoTeste
         public void Adicionar_NovoProjeto_DeveEstarInvalido()
         {
             // Arrange
-            var teste = new Mock<Projeto>();          
+            var teste = new Mock<Projeto>();
             var projeto = _projetoTestsFixture.GerarProjetoInValido();
 
             // Act
@@ -57,7 +57,7 @@ namespace Business.Test.ProjetoTeste
             _projetoTestsFixture.EhValido(projeto).Should().BeTrue();
 
             //Verifica se o método adicionar foi chamado pelo menos uma vez
-            _projetoTestsFixture.Mocker.GetMock<IProjetoRepository>().Verify(x => x.Adicionar(projeto), Times.Once);          
+            _projetoTestsFixture.Mocker.GetMock<IProjetoRepository>().Verify(x => x.Adicionar(projeto), Times.Once);
         }
 
         [Fact(DisplayName = "Atualiza Novo Projeto válido")]

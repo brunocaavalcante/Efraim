@@ -2,7 +2,7 @@
 @model Web.Models.UsuarioViewModel
 
 @{
-    ViewData["Title"] = "Editar Membro";
+    ViewData["Title"] = "Editar Usuário";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -38,10 +38,10 @@
             <input asp-for="Telefone" class="form-control" id="telefone" />
             <span asp-validation-for="Telefone" class="text-danger"></span>
 
-            @if (this.VerificaPermissao(Model,"Usuario","CreatePermissao"))
+            @*if (this.VerificaPermissao(Model,"Usuario","CreatePermissao"))
             {
                 <label>Funcionou!!!!!</label>
-            }
+            }*@
         </div>
     </div>
 

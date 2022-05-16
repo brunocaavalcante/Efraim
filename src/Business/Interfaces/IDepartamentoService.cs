@@ -1,6 +1,6 @@
+using Business.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Business.Models;
 
 namespace Business.Interfaces
 {
@@ -10,7 +10,7 @@ namespace Business.Interfaces
         Task Atualizar(Departamento entity);
         Task Excluir(Departamento entity);
         Task<List<Departamento>> Listar();
-        Task<Departamento> BuscarPorId(string id);       
+        Task<Departamento> BuscarPorId(string id);
         Task AdicionarMembro(Departamento entity, Usuario membro);
         Task RemoverMembro(Departamento entity, Usuario membro);
         Task AdicionarLider(Departamento entity, Usuario lider);

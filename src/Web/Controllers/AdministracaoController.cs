@@ -15,13 +15,19 @@ namespace Web.Controllers
     public class AdministracaoController : BaseController
     {
         private readonly IPermissaoService permissaoService;
+        private readonly IPerfilService perfilService;
+        private readonly IUsuarioService usuarioService;
         private readonly IMapper mapper;
 
         public AdministracaoController(INotificador notificador,
                                        IMapper _mapper,
+                                       IUsuarioService _usuarioService,
+                                       IPerfilService _perfilService,
                                        IPermissaoService _permissaoService) : base(notificador)
         {
             permissaoService = _permissaoService;
+            usuarioService = _usuarioService;
+            perfilService = _perfilService;
             mapper = _mapper;
         }
         // GET: AdminController
@@ -100,50 +106,50 @@ namespace Web.Controllers
         }
 
         #region permissoes 
-        
+
         #region perfil
-        public async Task<IActionResult> Permissoes()
+        public async Task<IActionResult> PerfilIndex()
         {
-            var lista = mapper.Map<IEnumerable<PermissaoViewModel>>(await permissaoService.ListarPermissao());
-            return View("Permissoes/Perfil/Permissoes", lista);
+            var lista = mapper.Map<IEnumerable<PerfilViewModel>>(await perfilService.Listar());
+            return View("Permissoes/Perfil/Index", lista);
         }
 
         public async Task<IActionResult> EditPermissao(string id)
         {
-            var permissao = mapper.Map<PermissaoViewModel>(await permissaoService.BuscarPorId(id));
+            var permissao = mapper.Map<PerfilViewModel>(await permissaoService.BuscarPorId(id));
             if (permissao == null) return NotFound();
 
             return View("Permissoes/Perfil/Edit", permissao);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditPermissao(PermissaoViewModel viewModel)
+        public async Task<IActionResult> EditPermissao(PerfilViewModel viewModel)
         {
             ModelState.Remove("Funcionalidade");
             ModelState.Remove("Perfil");
 
-            if (!ModelState.IsValid) return View("Permissoes/Perfil/Edit",viewModel);
+            if (!ModelState.IsValid) return View("Permissoes/Perfil/Edit", viewModel);
 
-            var permissao = mapper.Map<Permissao>(viewModel);
+            var permissao = mapper.Map<Perfil>(viewModel);
             await permissaoService.EditarPermissao(permissao);
 
-            if (!OperacaoValida()) return View("Pemissoes/Perfil/Edit",viewModel);
+            if (!OperacaoValida()) return View("Pemissoes/Perfil/Edit", viewModel);
 
             return RedirectToAction("Permissoes");
         }
 
-        public ActionResult CreatePermissao()
+        public ActionResult CreatePerfil()
         {
-            return View("Permissoes/Perfil/CreatePermissao", new PermissaoViewModel());
+            return View("Permissoes/Perfil/Create", new PerfilViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePermissao(PermissaoViewModel model)
+        public async Task<IActionResult> CreatePerfil(PerfilViewModel model)
         {
             try
             {
-                await permissaoService.SalvarPermissao(mapper.Map<Permissao>(model));
-                return RedirectToAction(nameof(Index));
+                await perfilService.Salvar(mapper.Map<Perfil>(model));
+                return RedirectToAction(nameof(PerfilIndex));
             }
             catch (Exception ex)
             {
@@ -153,29 +159,31 @@ namespace Web.Controllers
         #endregion
 
         #region usuario
-        public async Task<IActionResult> PermissoesUsuario()
+        public async Task<IActionResult> PerfilUsuario()
         {
-            var lista = mapper.Map<IEnumerable<PermissaoViewModel>>(await permissaoService.ListarPermissao());
-            return View("Permissoes/Usuario/Permissoes", lista);
+            var viewModel = new UsuarioPerfilViewModel();
+            viewModel.Usuarios = await RetornaUsuarios();
+            viewModel.ListaPerfil = mapper.Map<List<PerfilViewModel>>(await perfilService.Listar());
+            return View("Permissoes/Usuario/Perfil", viewModel);
         }
 
         public async Task<IActionResult> EditPermissaoUsuario(string id)
         {
-            var permissao = mapper.Map<PermissaoViewModel>(await permissaoService.BuscarPorId(id));
+            var permissao = mapper.Map<PerfilViewModel>(await permissaoService.BuscarPorId(id));
             if (permissao == null) return NotFound();
 
             return View("Permissoes/Usuario/Edit", permissao);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditPermissaoUsuario(PermissaoViewModel viewModel)
+        public async Task<IActionResult> EditPermissaoUsuario(PerfilViewModel viewModel)
         {
             ModelState.Remove("Funcionalidade");
             ModelState.Remove("Perfil");
 
             if (!ModelState.IsValid) return View("Permissoes/Usuario/Edit", viewModel);
 
-            var permissao = mapper.Map<Permissao>(viewModel);
+            var permissao = mapper.Map<Perfil>(viewModel);
             await permissaoService.EditarPermissao(permissao);
 
             if (!OperacaoValida()) return View("Pemissoes/Usuario/Edit", viewModel);
@@ -183,23 +191,59 @@ namespace Web.Controllers
             return RedirectToAction("Permissoes");
         }
 
-        public ActionResult CreatePermissaoUsuario()
+        public ActionResult CreatePerfilUsuario()
         {
-            return View("Permissoes/Usuario/CreatePermissao", new PermissaoViewModel());
+            return View("Permissoes/Usuario/CreatePermissao", new PerfilViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePermissaoUsuario(PermissaoViewModel model)
+        public async Task<IActionResult> AdicionarPerfilUsuario(string idUsuario, string idPerfil)
         {
             try
             {
-                await permissaoService.SalvarPermissao(mapper.Map<Permissao>(model));
+                var usuario = await usuarioService.BuscarPorId(idUsuario);
+                var perfil = await perfilService.BuscarPorId(idPerfil);
+                var sucesso = await perfilService.SalvarPerfilUsuario(perfil, usuario);
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoverPerfilUsuario(string idUsuario, string idPerfil)
+        {
+            try
+            {                
+                var usuario = await usuarioService.BuscarPorId(idUsuario);
+                usuario.ListaPerfil = await perfilService.RetornaPerfilUsuario(usuario);
+
+                var perfil = await perfilService.BuscarPorId(idPerfil);
+                perfil = usuario.ListaPerfil.Where(p => p.Descricao == perfil.Descricao).FirstOrDefault();
+
+                var sucesso = await perfilService.RemoverPerfilUsuario(perfil, usuario);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        private async Task<List<UsuarioViewModel>> RetornaUsuarios()
+        {
+            var lista = mapper.Map<List<UsuarioViewModel>>(await usuarioService.ListarTodos());
+
+            foreach(var item in lista)
+            {
+                item.ListaPerfil = mapper.Map<List<PerfilViewModel>>(await perfilService.RetornaPerfilUsuario(mapper.Map<Usuario>(item)));
+            }
+
+            return lista;
         }
         #endregion
 

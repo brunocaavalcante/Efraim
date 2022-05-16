@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using AutoMapper;
 using Business.Core.Intefaces;
 using Business.Interfaces;
 using Business.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Web.Models;
 
 namespace Web.Controllers
@@ -12,10 +12,10 @@ namespace Web.Controllers
     public class DepartamentoController : BaseController
     {
         private readonly IDepartamentoService service;
-        private readonly IMembroService membroService;
+        private readonly IUsuarioService membroService;
         private readonly IMapper mapper;
         public DepartamentoController(IDepartamentoService _service,
-                                      IMembroService _membroService,
+                                      IUsuarioService _membroService,
                                       IMapper _mapper,
                                       INotificador notificador) : base(notificador)
         {

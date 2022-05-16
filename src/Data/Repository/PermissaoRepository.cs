@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class PermissaoRepository : BaseRepository<Permissao>, IPermissaoRepository
+    public class PermissaoRepository : BaseRepository<Perfil>, IPermissaoRepository
     {
         private string path;
 
@@ -16,22 +16,22 @@ namespace Data.Repository
             path = "permissoes";
         }
 
-        public async Task<Permissao> BuscarPorId(string id)
+        public async Task<Perfil> BuscarPorId(string id)
         {
             return await this.ObterPorId(id, path);
         }
 
-        public Task<Permissao> BuscarPorIdUsuario(string id)
+        public Task<Perfil> BuscarPorIdUsuario(string id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task EditarPermissao(Permissao permissao)
+        public async Task EditarPermissao(Perfil permissao)
         {
             await this.Atualizar(permissao, path);
         }
 
-        public Task EditarPermissaoUsuario(Permissao permissao)
+        public Task EditarPermissaoUsuario(Perfil permissao)
         {
             throw new NotImplementedException();
         }
@@ -44,26 +44,13 @@ namespace Data.Repository
         public Task ExcluirPermissaoUsuario(string Id)
         {
             throw new NotImplementedException();
-        }
+        }       
 
-        public async Task<IEnumerable<Permissao>> ListarPermissao()
-        {
-            return (await this.Listar(path)).OrderBy(x => x.Perfil);
-        }
-
-        public Task<IEnumerable<Permissao>> ListarPermissaoUsuario()
+        public Task<IEnumerable<Perfil>> ListarPermissaoUsuario()
         {
             throw new NotImplementedException();
         }
 
-        public async Task SalvarPermissao(Permissao permissao)
-        {
-            await this.Adicionar(permissao, path);
-        }
-
-        public Task SalvarPermissaoUsuario(Permissao permissao)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

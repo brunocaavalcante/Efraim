@@ -1,0 +1,12 @@
+@model List<Web.Models.UsuarioViewModel>
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h1 class="text-center"><i>Módulo de Usuários</i></h1>
+
+<p>
+    <a asp-controller="Usuario" asp-action="Create" class="btn btn-outline-info">Adicionar Usuario</a>
+</p>
+
+<partial name="_Listar"/>

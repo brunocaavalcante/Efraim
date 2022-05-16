@@ -1,6 +1,6 @@
+using Business.Core.Intefaces;
 using System.Collections.Generic;
 using System.Linq;
-using Business.Core.Intefaces;
 
 namespace Business.Core.Notificacoes
 {

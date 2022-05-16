@@ -1,16 +1,13 @@
 ﻿using Business.Core.Models;
 using Google.Cloud.Firestore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Models
 {
     [FirestoreData]
-    public class Permissao : Entity
+    public class Perfil : Entity
     {
         [FirestoreProperty]
-        public string Perfil { get; set; }
+        public string Descricao { get; set; }
 
         [FirestoreProperty]
         public string Funcionalidade { get; set; }
@@ -18,4 +15,5 @@ namespace Business.Models
         [FirestoreProperty]
         public string Permissoes { get; set; }
     }
+
 }

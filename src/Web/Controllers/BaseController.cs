@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public abstract class BaseController: Controller
+    public abstract class BaseController : Controller
     {
         private readonly INotificador _notificador;
 

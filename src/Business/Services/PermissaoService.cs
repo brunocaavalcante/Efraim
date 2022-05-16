@@ -2,6 +2,8 @@
 using Business.Core.Services;
 using Business.Interfaces;
 using Business.Models;
+using Business.Validations;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,23 +17,23 @@ namespace Business.Services
             repository = administracaoRepository;
         }
 
-        public async Task<Permissao> BuscarPorId(string id)
+        public async Task<Perfil> BuscarPorId(string id)
         {
             return await repository.BuscarPorId(id);
         }
 
-        public Task<Permissao> BuscarPorIdUsuario(string id)
+        public Task<Perfil> BuscarPorIdUsuario(string id)
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task EditarPermissao(Permissao permissao)
+        public async Task EditarPermissao(Perfil permissao)
         {
             //Validar entidade
             await repository.EditarPermissao(permissao);
         }
 
-        public Task EditarPermissaoUsuario(Permissao permissao)
+        public Task EditarPermissaoUsuario(Perfil permissao)
         {
             throw new System.NotImplementedException();
         }
@@ -46,26 +48,12 @@ namespace Business.Services
             throw new System.NotImplementedException();
         }
 
-        public async Task<IEnumerable<Permissao>> ListarPermissao()
-        {
-            return await repository.ListarPermissao();
-        }
 
-        public Task<IEnumerable<Permissao>> ListarPermissaoUsuario()
+        public Task<IEnumerable<Perfil>> ListarPermissaoUsuario()
         {
             throw new System.NotImplementedException();
         }
 
-        public async Task SalvarPermissao(Permissao permissao)
-        {
-            //Validar entidade
-
-            await repository.SalvarPermissao(permissao);
-        }
-
-        public Task SalvarPermissaoUsuario(Permissao permissao)
-        {
-            throw new System.NotImplementedException();
-        }
+     
     }
 }

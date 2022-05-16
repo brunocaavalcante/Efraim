@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Business.Core.Intefaces;
 using Business.Core.Services;
 using Business.Interfaces;
 using Business.Models;
 using Business.Validations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Business.Services
 {
@@ -73,8 +73,8 @@ namespace Business.Services
         }
 
         public async Task AdicionarLider(Departamento entity, Usuario lider)
-        {           
-            if (!ExecutarValidacao(new MembroValidation(), lider)) return;
+        {
+            if (!ExecutarValidacao(new UserValidation(), lider)) return;
 
             bool liderJaExiste = entity.Lideres.Where(m => m.CPF == lider.CPF).Any();
             bool isMembro = entity.Membros.Where(m => m.CPF == lider.CPF).Any();

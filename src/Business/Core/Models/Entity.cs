@@ -1,5 +1,5 @@
-using System;
 using Google.Cloud.Firestore;
+using System;
 
 namespace Business.Core.Models
 {

@@ -1,8 +1,8 @@
+using Business.Core.Models;
+using Google.Cloud.Firestore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Business.Core.Models;
-using Google.Cloud.Firestore;
 
 namespace Data.Repository
 {
@@ -80,22 +80,26 @@ namespace Data.Repository
 
         protected virtual async Task<List<TEntity>> Listar(string path)
         {
-            this.Db = Conexao();
-            var usersRef = Db.Collection(path);
-            var snapshot = await usersRef.GetSnapshotAsync();
-            var lista = new List<TEntity>();
-
-            foreach (DocumentSnapshot document in snapshot.Documents)
+            try
             {
-                if (document.Exists)
-                {
-                    TEntity entity = document.ConvertTo<TEntity>();
-                    entity.Id = document.Id;
-                    lista.Add(entity);
-                }
-            }
+                this.Db = Conexao();
+                var usersRef = Db.Collection(path);
+                var snapshot = await usersRef.GetSnapshotAsync();
+                var lista = new List<TEntity>();
 
-            return await Task.FromResult(lista);
+                foreach (DocumentSnapshot document in snapshot.Documents)
+                {
+                    if (document.Exists)
+                    {
+                        TEntity entity = document.ConvertTo<TEntity>();
+                        entity.Id = document.Id;
+                        lista.Add(entity);
+                    }
+                }
+
+                return await Task.FromResult(lista);
+            }
+            catch (Exception ex) { return null; }
         }
     }
 }
