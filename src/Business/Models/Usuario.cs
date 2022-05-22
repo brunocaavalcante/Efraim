@@ -23,6 +23,8 @@ namespace Business.Models
         [FirestoreProperty("email")]
         public string Email { get; set; }
 
+        public int Senha { get; set; }
+
         public List<Perfil> ListaPerfil { get; set; }
     }
 }

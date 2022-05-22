@@ -5,7 +5,7 @@ using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Business.Test.ProjetoTeste
+namespace Business.Test.TestesDeUnidade.ProjetoTeste
 {
     [Collection(nameof(ProjetoCollection))]
     public class ProjetoTeste

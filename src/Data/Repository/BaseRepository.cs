@@ -12,9 +12,19 @@ namespace Data.Repository
 
         protected FirestoreDb Conexao()
         {
-            string filepath = "..\\Web\\efraim-key.json";
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
-            return FirestoreDb.Create("efraim-65b10");
+
+            if (Environment.CurrentDirectory.Contains("tests"))
+            {              
+                string filepath = "efraim-key-dev.json";
+                Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
+                return FirestoreDb.Create("efraim-dev");
+            }
+            else 
+            {
+                string filepath = "..\\Web\\efraim-key.json";
+                Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
+                return FirestoreDb.Create("efraim-65b10");
+            }
         }
 
         public virtual async Task Remover(Entity entity, string path)

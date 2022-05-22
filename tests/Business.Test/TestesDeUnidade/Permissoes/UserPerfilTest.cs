@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Business.Test.Permissoes
+namespace Business.Test.TestesDeUnidade.Permissoes
 {
     public class UserPerfilTest
     {

@@ -6,7 +6,7 @@ using Moq.AutoMock;
 using System;
 using Xunit;
 
-namespace Business.Test.ProjetoTeste
+namespace Business.Test.TestesDeUnidade.ProjetoTeste
 {
     [CollectionDefinition(nameof(ProjetoCollection))]
     public class ProjetoCollection : ICollectionFixture<ProjetoTesteFixture>

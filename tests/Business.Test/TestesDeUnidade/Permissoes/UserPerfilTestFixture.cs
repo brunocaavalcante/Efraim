@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Business.Test.Permissoes
+namespace Business.Test.TestesDeUnidade.Permissoes
 {
     public class UserPerfilTestFixture : IDisposable
     {

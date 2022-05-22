@@ -11,6 +11,8 @@ bin/
 
 docs/runtimes/
 efraim-key.json
+efraim-key-dev.json
+
 # User-specific files
 *.rsuser
 *.suo

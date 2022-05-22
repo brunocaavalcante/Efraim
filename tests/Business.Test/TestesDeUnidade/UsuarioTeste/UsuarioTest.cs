@@ -1,6 +1,6 @@
 ﻿using Business.Interfaces;
 using Business.Services;
-using Business.Test.Permissoes;
+using Business.Test.TestesDeUnidade.Permissoes;
 using Business.Validations;
 using Moq;
 using System;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace Business.Test.UsuarioTeste
+namespace Business.Test.TestesDeUnidade.UsuarioTeste
 {
     public class UsuarioTest
     {

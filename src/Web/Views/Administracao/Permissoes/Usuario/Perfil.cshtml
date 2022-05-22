@@ -5,22 +5,8 @@
     ViewData["Title"] = "Perfil X Usuários";
 }
 
-<h1 class="text-center"><i>Perfil X Usuário</i></h1>
 
-
-<div class="row align-items-start">
-    <div class="col">
-        <label asp-for="Usuario.CPF" class="form-label">CPF:</label>
-        <input type="text" asp-for="Usuario.CPF" class="form-control" id="cpf">
-        <span asp-validation-for="Usuario.CPF" class="text-danger"></span>
-    </div>
-    <p class="col">
-        <a asp-controller="Administracao" asp-action="CreatePerfilUsuario" class="btn btn-outline-info">Pesquisar</a>
-    </p>
-</div>
-
-
-<table class="table table-hover">
+<table id="perfilUsuario" class="table table-hover">
     <thead class="thead-dark">
         <tr>
             <th>
@@ -37,32 +23,49 @@
     <tbody>
         @foreach (var item in Model.Usuarios)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            @foreach (var perfil in Model.ListaPerfil)
-            {
+            <tr>
                 <td>
-                    <input  type="checkbox" @Model.PossuiPerfil(item ,perfil.Descricao) onchange="checkPerfil('@item.Id','@perfil.Id', $(this).is(':checked'))" />
+                    @Html.DisplayFor(modelItem => item.Nome)
                 </td>
-            }      
-        </tr>
+                @foreach (var perfil in Model.ListaPerfil)
+                {
+                    <td>
+                        <input type="checkbox" @Model.PossuiPerfil(item, perfil.Descricao) onchange="checkPerfil('@item.Id','@perfil.Id', $(this).is(':checked'))" />
+                    </td>
+                }
+            </tr>
         }
     </tbody>
 </table>
 
-<script>
-    function checkPerfil(id,idPerfil,check)
-    {
-        var action = check ? "AdicionarPerfilUsuario" : "RemoverPerfilUsuario";
+@section Scripts {
+    <script>
 
-        $.ajax({
-            type: "POST",
-            url:  action,
-            data: { idUsuario: id, idPerfil: idPerfil},
-            success: function(data){            
-            },
+        $(document).ready(function () {
+            $('#perfilUsuario').DataTable({
+                "lengthChange": false,
+                "oLanguage": {
+                    "sSearch": "Pesquisar Usuário:",
+                    "sZeroRecords": "Nenhum registro encontrado!",
+                    "sInfo":"_START_ de _END_",
+                    "oPaginate": {
+                        "sNext": "Proximo",
+                        "sPrevious":"Anterior"
+                    }
+                }
+            });
         });
-    }
-</script>
+
+        function checkPerfil(id, idPerfil, check) {
+            var action = check ? "AdicionarPerfilUsuario" : "RemoverPerfilUsuario";
+
+            $.ajax({
+                type: "POST",
+                url: action,
+                data: { idUsuario: id, idPerfil: idPerfil },
+                success: function (data) {
+                },
+            });
+        }
+    </script>
+}

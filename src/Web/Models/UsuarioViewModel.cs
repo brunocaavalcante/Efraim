@@ -18,6 +18,12 @@ namespace Web.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public string Senha { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public string ConfirmeSenha { get; set; }
+
         [DisplayName("Data de Nascimento")]
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public DateTime DataNascimento { get; set; }
